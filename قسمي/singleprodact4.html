@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details Section</title>
+
+  <!-- Bootstrap -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Bootstrap Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  />
+
+  <style>
+    body {
+      background: #fff;
+      font-family: Arial, sans-serif;
+      color: #3f5a93;
+      font-size: 13px;
+    }
+
+    .main-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 15px 50px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #3f5a93;
+      margin-bottom: 12px;
+    }
+
+    .small-text {
+      font-size: 12px;
+      color: #8ea0c2;
+    }
+
+    .rating-stars {
+      color: #ff9a2f;
+      font-size: 12px;
+    }
+
+    .old-price {
+      color: #a7b4ca;
+      text-decoration: line-through;
+      margin-left: 8px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .new-price {
+      font-size: 40px;
+      font-weight: 700;
+      color: #3f5a93;
+    }
+
+    .thumb-box {
+      border: 1px solid #d8e1ee;
+      width: 74px;
+      height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      cursor: pointer;
+      background: #fff;
+    }
+
+    .thumb-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .main-image-box {
+      border: 1px solid #d8e1ee;
+      background: #fff;
+      min-height: 430px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    .discount-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: #ff9a2f;
+      color: #fff;
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+
+    .main-image-box img {
+      max-width: 100%;
+      max-height: 380px;
+      object-fit: contain;
+    }
+
+    .product-top-area {
+      border-bottom: 1px solid #dfe6f0;
+      padding-bottom: 30px;
+      margin-bottom: 32px;
+    }
+
+    .product-title {
+      font-size: 28px;
+      line-height: 1.35;
+      font-weight: 700;
+      color: #3f5a93;
+      margin-bottom: 10px;
+    }
+
+    .product-meta-link {
+      color: #8ea0c2;
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .product-meta-link:hover {
+      color: #3f5a93;
+    }
+
+    .product-features {
+      color: #8ea0c2;
+      font-size: 12px;
+      line-height: 1.8;
+      margin: 18px 0;
+      padding-left: 18px;
+    }
+
+    .qty-box {
+      width: 130px;
+      height: 44px;
+      border: 1px solid #d8e1ee;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      color: #3f5a93;
+      font-weight: 700;
+    }
+
+    .btn-cart-main,
+    .btn-buy-main {
+      min-width: 150px;
+      height: 44px;
+      border-radius: 0;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .btn-cart-main {
+      background: #fff;
+      color: #3f5a93;
+      border: 1px solid #aebbd4;
+    }
+
+    .btn-buy-main {
+      background: #3f5a93;
+      color: #fff;
+      border: 1px solid #3f5a93;
+    }
+
+    .wishlist-compare {
+      border-top: 1px solid #e1e8f0;
+      border-bottom: 1px solid #e1e8f0;
+      padding: 14px 0;
+      margin: 20px 0;
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .wishlist-compare a,
+    .compare-link {
+      color: #8ea0c2;
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .wishlist-compare a:hover,
+    .compare-link:hover {
+      color: #3f5a93;
+    }
+
+    .product-meta-list {
+      font-size: 12px;
+      line-height: 1.9;
+      color: #8ea0c2;
+    }
+
+    .product-meta-list strong {
+      color: #3f5a93;
+      font-weight: 600;
+    }
+
+    .block-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #3f5a93;
+      margin-bottom: 22px;
+    }
+
+    .subsection-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #3f5a93;
+      margin-bottom: 20px;
+    }
+
+    .fbt-box {
+      border-bottom: 1px solid #e2e9f1;
+      padding-bottom: 30px;
+      margin-bottom: 35px;
+    }
+
+    .fbt-product {
+      border: 1px solid #d8e1ee;
+      width: 140px;
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+    }
+
+    .fbt-product img {
+      max-width: 80px;
+      max-height: 90px;
+      object-fit: contain;
+    }
+
+    .plus-sign {
+      font-size: 28px;
+      color: #8ea0c2;
+      font-weight: 400;
+    }
+
+    .fbt-price {
+      font-size: 22px;
+      font-weight: 700;
+      color: #3f5a93;
+    }
+
+    .fbt-list {
+      margin-top: 18px;
+    }
+
+    .fbt-list .form-check {
+      margin-bottom: 8px;
+      color: #8ea0c2;
+      font-size: 12px;
+    }
+
+    .custom-tabs {
+      border-bottom: 1px solid #e2e9f1;
+      margin-bottom: 22px;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .custom-tabs .nav-link {
+      border: 0;
+      color: #8ea0c2;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 0 0 12px;
+      background: transparent;
+    }
+
+    .custom-tabs .nav-link.active {
+      color: #3f5a93;
+      background: transparent;
+      border-bottom: 2px solid #3f5a93;
+    }
+
+    .description-text {
+      color: #8ea0c2;
+      font-size: 12px;
+      line-height: 1.9;
+      margin-bottom: 18px;
+    }
+
+    .btn-more-details {
+      min-width: 150px;
+      height: 40px;
+      border: 1px solid #aebbd4;
+      background: #fff;
+      color: #3f5a93;
+      border-radius: 0;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .product-card {
+      border: 1px solid #d8e1ee;
+      background: #fff;
+      padding: 14px;
+      height: 100%;
+      position: relative;
+      transition: 0.2s ease;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 8px 20px rgba(59, 89, 152, 0.08);
+    }
+
+    .product-card .sale-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: #ff9a2f;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 14px;
+    }
+
+    .product-card-image {
+      height: 155px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .product-card-image img {
+      max-width: 100%;
+      max-height: 145px;
+      object-fit: contain;
+    }
+
+    .product-brand {
+      font-size: 10px;
+      color: #8ea0c2;
+      margin-bottom: 4px;
+    }
+
+    .product-name {
+      font-size: 12px;
+      color: #3f5a93;
+      font-weight: 700;
+      line-height: 1.45;
+      min-height: 35px;
+      margin-bottom: 8px;
+    }
+
+    .product-price-row {
+      margin: 10px 0 12px;
+    }
+
+    .product-price {
+      font-size: 20px;
+      color: #3f5a93;
+      font-weight: 700;
+    }
+
+    .product-old-price {
+      color: #aab6ca;
+      text-decoration: line-through;
+      font-size: 11px;
+      margin-left: 7px;
+    }
+
+    .btn-add-cart {
+      width: 100%;
+      height: 40px;
+      border: 1px solid #aebbd4;
+      background: #fff;
+      color: #3f5a93;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 0;
+      margin-bottom: 12px;
+    }
+
+    .mini-features {
+      padding-left: 15px;
+      margin: 0;
+      color: #8ea0c2;
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    .section-block {
+      margin-bottom: 42px;
+    }
+
+    .recent-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      height: 100%;
+    }
+
+    .recent-item img {
+      width: 78px;
+      height: 78px;
+      object-fit: contain;
+    }
+
+    .recent-title {
+      font-size: 12px;
+      color: #3f5a93;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+
+    .banner-box {
+      border: 1px solid #d8e1ee;
+      background: #f9fbfd;
+      min-height: 170px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .banner-box .banner-left,
+    .banner-box .banner-right {
+      width: 25%;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      height: 170px;
+    }
+
+    .banner-box .banner-left img,
+    .banner-box .banner-right img {
+      max-height: 165px;
+      object-fit: contain;
+    }
+
+    .banner-box .banner-content {
+      width: 50%;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .banner-main-title {
+      font-size: 36px;
+      color: #222;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .banner-subtitle {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 8px;
+    }
+
+    .banner-small {
+      font-size: 12px;
+      color: #8a8a8a;
+    }
+
+    @media (max-width: 991.98px) {
+      .main-image-box {
+        min-height: 320px;
+      }
+
+      .product-title {
+        font-size: 24px;
+      }
+
+      .new-price {
+        font-size: 30px;
+      }
+
+      .banner-box {
+        flex-direction: column;
+        padding: 20px 0;
+      }
+
+      .banner-box .banner-left,
+      .banner-box .banner-right,
+      .banner-box .banner-content {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .thumb-column {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+
+      .thumb-box {
+        margin-bottom: 0;
+      }
+
+      .qty-actions {
+        flex-direction: column;
+        align-items: stretch !important;
+      }
+
+      .btn-cart-main,
+      .btn-buy-main {
+        width: 100%;
+      }
+
+      .block-title,
+      .subsection-title {
+        font-size: 22px;
+      }
+
+      .banner-main-title {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-wrapper">
+
+    <!-- PRODUCT TOP AREA -->
+    <section class="product-top-area">
+      <div class="row g-4">
+        
+        <!-- GALLERY -->
+        <div class="col-lg-5">
+          <div class="row g-3">
+            <div class="col-12 col-md-2 thumb-column">
+              <div class="thumb-box">
+                <img src="https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500" alt="thumb 1">
+              </div>
+              <div class="thumb-box">
+                <img src="https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500" alt="thumb 2">
+              </div>
+              <div class="thumb-box">
+                <img src="https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500" alt="thumb 3">
+              </div>
+              <div class="thumb-box">
+                <img src="https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500" alt="thumb 4">
+              </div>
+              <div class="thumb-box">
+                <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=300" alt="thumb 5">
+              </div>
+            </div>
+
+            <div class="col-12 col-md-10">
+              <div class="main-image-box">
+                <span class="discount-badge">-17%</span>
+                <img src="https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500" alt="main product">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRODUCT INFO -->
+        <div class="col-lg-7">
+          <h1 class="product-title">Samsung 36" French door 28 cu. ft. Smart Energy Star Refrigerator</h1>
+
+          <a href="#" class="product-meta-link">by Ecom Tech</a>
+
+          <div class="mt-2">
+            <span class="rating-stars">★★★★★</span>
+            <span class="small-text ms-1">(65)</span>
+          </div>
+
+          <div class="mt-4 mb-3">
+            <span class="new-price">$2856.3</span>
+            <span class="old-price">$3925.6</span>
+          </div>
+
+          <ul class="product-features">
+            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+            <li>Nulla sit amet diam condimentum, vehicula elit nec, accumsan velit.</li>
+            <li>Morbi consectetur lacus nec vestibulum auctor.</li>
+            <li>Nulla suscipit tellus vel sem rhoncus auctor.</li>
+          </ul>
+
+          <div class="small-text mb-2">Quantity</div>
+
+          <div class="d-flex align-items-center gap-3 flex-wrap qty-actions">
+            <div class="qty-box">
+              <span>-</span>
+              <span>1</span>
+              <span>+</span>
+            </div>
+
+            <button class="btn btn-cart-main">Add to cart</button>
+            <button class="btn btn-buy-main">Buy now</button>
+          </div>
+
+          <div class="wishlist-compare">
+            <a href="#"><i class="bi bi-heart"></i> Add to Wish list</a>
+            <a href="#"><i class="bi bi-shuffle"></i> Add to Compare</a>
+          </div>
+
+          <div class="product-meta-list">
+            <div><strong>SKU:</strong> EcomTech1232</div>
+            <div><strong>Category:</strong> Smartphones</div>
+            <div><strong>Tag:</strong> Blue, Smartphone</div>
+          </div>
+
+          <div class="mt-3">
+            <a href="#" class="compare-link">Compare with similar items</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FREQUENTLY BOUGHT TOGETHER -->
+    <section class="fbt-box">
+      <h2 class="subsection-title">Frequently Bought Together</h2>
+
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <div class="d-flex align-items-center flex-wrap gap-3">
+            <div class="fbt-product">
+              <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=300" alt="">
+            </div>
+
+            <div class="plus-sign">+</div>
+
+            <div class="fbt-product">
+              <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=300" alt="">
+            </div>
+          </div>
+
+          <div class="fbt-list">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" checked id="fbt1">
+              <label class="form-check-label" for="fbt1">
+                This item/Phone 12 Pro Max 128GB Pacific Blue - $1089.00
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" checked id="fbt2">
+              <label class="form-check-label" for="fbt2">
+                Apple AirPods Pro, Active Noise Cancellation, Custom Fit - $197.00
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" checked id="fbt3">
+              <label class="form-check-label" for="fbt3">
+                Apple Mac 24" All-In-One Computer, Apple M1, 8GB RAM, 512GB SSD - $1599.00
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="d-flex flex-column align-items-lg-start align-items-center">
+            <div class="fbt-price">$2856.3 <span class="small-text">(3 items)</span></div>
+            <button class="btn btn-cart-main mt-3" style="min-width: 150px;">Add To Cart</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESCRIPTION TABS -->
+    <section class="section-block">
+      <ul class="nav custom-tabs">
+        <li class="nav-item">
+          <button class="nav-link active">Description</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link">Specification</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link">Additional information</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link">Reviews (2)</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link">Vendor</button>
+        </li>
+      </ul>
+
+      <p class="description-text">
+        It is a long established fact that a reader will be distracted by the readable content
+        of a page when looking at its layout. The point of using Lorem Ipsum is that it has a
+        more-or-less normal distribution of letters, as opposed to using 'Content here, content
+        here', making it look like readable English.
+      </p>
+
+      <p class="description-text">
+        Many desktop publishing packages and web page editors now use Lorem Ipsum as their
+        default model text, and a search for 'lorem ipsum' will uncover many web sites still in
+        their infancy. Various versions have evolved over the years.
+      </p>
+
+      <div class="text-center mt-4">
+        <button class="btn btn-more-details">More Details</button>
+      </div>
+    </section>
+
+    <!-- RELATED PRODUCTS -->
+    <section class="section-block">
+      <h2 class="subsection-title">Related Products</h2>
+
+      <div class="row g-4">
+        <!-- Card 1 -->
+        <div class="col-12 col-sm-6 col-lg-2-4">
+          <div class="product-card">
+            <span class="sale-badge">-17%</span>
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1527430253228-e93688616381?w=500" alt="">
+            </div>
+            <div class="product-brand">Dell</div>
+            <div class="product-name">Dell Optiplex 3000 Small Form Business Desktop Tower</div>
+            <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+            <div class="product-price-row">
+              <span class="product-price">$2856.3</span>
+              <span class="product-old-price">$3225.6</span>
+            </div>
+            <button class="btn btn-add-cart">Add To Cart</button>
+            <ul class="mini-features">
+              <li>27-inch diagonal Retina 5K display</li>
+              <li>3.2GHz 6-core processor</li>
+              <li>AMD Radeon graphics</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-12 col-sm-6 col-lg-2-4">
+          <div class="product-card">
+            <span class="sale-badge">-17%</span>
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" alt="">
+            </div>
+            <div class="product-brand">Apple</div>
+            <div class="product-name">HP 24 All-in-One PC, Intel Core i3-1115G4, 8GB RAM</div>
+            <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+            <div class="product-price-row">
+              <span class="product-price">$2856.3</span>
+              <span class="product-old-price">$3225.6</span>
+            </div>
+            <button class="btn btn-add-cart">Add To Cart</button>
+            <ul class="mini-features">
+              <li>27-inch diagonal Retina 5K display</li>
+              <li>3.2GHz 6-core processor</li>
+              <li>AMD Radeon graphics</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-12 col-sm-6 col-lg-2-4">
+          <div class="product-card">
+            <span class="sale-badge">-17%</span>
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500" alt="">
+            </div>
+            <div class="product-brand">Gateway</div>
+            <div class="product-name">Gateway 23.8" All-in-one Desktop, Fully Adjustable</div>
+            <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+            <div class="product-price-row">
+              <span class="product-price">$2856.3</span>
+              <span class="product-old-price">$3225.6</span>
+            </div>
+            <button class="btn btn-add-cart">Add To Cart</button>
+            <ul class="mini-features">
+              <li>27-inch diagonal Retina 5K display</li>
+              <li>3.2GHz 6-core processor</li>
+              <li>AMD Radeon graphics</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="col-12 col-sm-6 col-lg-2-4">
+          <div class="product-card">
+            <span class="sale-badge">-17%</span>
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" alt="">
+            </div>
+            <div class="product-brand">HP</div>
+            <div class="product-name">HP 24 All-in-One PC, Intel Pentium Silver J5040, 4GB RAM</div>
+            <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+            <div class="product-price-row">
+              <span class="product-price">$2856.3</span>
+              <span class="product-old-price">$3225.6</span>
+            </div>
+            <button class="btn btn-add-cart">Add To Cart</button>
+            <ul class="mini-features">
+              <li>27-inch diagonal Retina 5K display</li>
+              <li>3.2GHz 6-core processor</li>
+              <li>AMD Radeon graphics</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="col-12 col-sm-6 col-lg-2-4">
+          <div class="product-card">
+            <span class="sale-badge">-17%</span>
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500" alt="">
+            </div>
+            <div class="product-brand">Seagate</div>
+            <div class="product-name">Seagate 2.4" Professional Thin Pro 1080p LED Monitor</div>
+            <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+            <div class="product-price-row">
+              <span class="product-price">$2856.3</span>
+              <span class="product-old-price">$3225.6</span>
+            </div>
+            <button class="btn btn-add-cart">Add To Cart</button>
+            <ul class="mini-features">
+              <li>27-inch diagonal Retina 5K display</li>
+              <li>3.2GHz 6-core processor</li>
+              <li>AMD Radeon graphics</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- YOU MAY ALSO LIKE -->
+    <section class="section-block">
+      <h2 class="subsection-title">You may also like</h2>
+
+      <div class="row g-4">
+        <div class="col-12 col-sm-6 col-lg-2-4">
+          <div class="product-card">
+            <span class="sale-badge">-17%</span>
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1527430253228-e93688616381?w=500" alt="">
+            </div>
+            <div class="product-brand">Apple</div>
+            <div class="product-name">HP DeskJet 3755 Wireless Color All-in-One Printer</div>
+            <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+            <div class="product-price-row">
+              <span class="product-price">$2856.3</span>
+              <span class="product-old-price">$3225.6</span>
+            </div>
+            <button class="btn btn-add-cart">Add To Cart</button>
+            <ul class="mini-features">
+              <li>27-inch diagonal Retina 5K display</li>
+              <li>3.2GHz 6-core processor</li>
+              <li>AMD Radeon graphics</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-2-4">
+          <div class="product-card">
+            <span class="sale-badge">-17%</span>
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" alt="">
+            </div>
+            <div class="product-brand">Apple</div>
+            <div class="product-name">Razer Power Up Gaming Bundle V2 - Cynosa Lite</div>
+            <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+            <div class="product-price-row">
+              <span class="product-price">$2856.3</span>
+              <span class="product-old-price">$3225.6</span>
+            </div>
+            <button class="btn btn-add-cart">Add To Cart</button>
+            <ul class="mini-features">
+              <li>27-inch diagonal Retina 5K display</li>
+              <li>3.2GHz 6-core processor</li>
+              <li>AMD Radeon graphics</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-2-4">
+          <div class="product-card">
+            <span class="sale-badge">-17%</span>
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500" alt="">
+            </div>
+            <div class="product-brand">Apple</div>
+            <div class="product-name">Apple AirPods Pro with MagSafe Charging Case</div>
+            <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+            <div class="product-price-row">
+              <span class="product-price">$2856.3</span>
+              <span class="product-old-price">$3225.6</span>
+            </div>
+            <button class="btn btn-add-cart">Add To Cart</button>
+            <ul class="mini-features">
+              <li>27-inch diagonal Retina 5K display</li>
+              <li>3.2GHz 6-core processor</li>
+              <li>AMD Radeon graphics</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-2-4">
+          <div class="product-card">
+            <span class="sale-badge">-17%</span>
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" alt="">
+            </div>
+            <div class="product-brand">Apple</div>
+            <div class="product-name">SAMSUNG Galaxy Tab A7 Lite, 8.7" Tablet 32GB</div>
+            <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+            <div class="product-price-row">
+              <span class="product-price">$2856.3</span>
+              <span class="product-old-price">$3225.6</span>
+            </div>
+            <button class="btn btn-add-cart">Add To Cart</button>
+            <ul class="mini-features">
+              <li>27-inch diagonal Retina 5K display</li>
+              <li>3.2GHz 6-core processor</li>
+              <li>AMD Radeon graphics</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-2-4">
+          <div class="product-card">
+            <span class="sale-badge">-17%</span>
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500" alt="">
+            </div>
+            <div class="product-brand">Apple</div>
+            <div class="product-name">HP 24mh FHD Monitor - Computer Monitor</div>
+            <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+            <div class="product-price-row">
+              <span class="product-price">$2856.3</span>
+              <span class="product-old-price">$3225.6</span>
+            </div>
+            <button class="btn btn-add-cart">Add To Cart</button>
+            <ul class="mini-features">
+              <li>27-inch diagonal Retina 5K display</li>
+              <li>3.2GHz 6-core processor</li>
+              <li>AMD Radeon graphics</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECENTLY VIEWED -->
+    <section class="section-block">
+      <h2 class="subsection-title">Recently viewed items</h2>
+
+      <div class="row g-4">
+        <div class="col-md-3 col-sm-6">
+          <div class="recent-item">
+            <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=300" alt="">
+            <div>
+              <div class="product-brand">Apple</div>
+              <div class="recent-title">SAMSUNG Galaxy Tab A7 Lite, 8.7" Tablet 32GB</div>
+              <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+              <div class="mt-1">
+                <span class="product-price">$2556.3</span>
+                <span class="product-old-price">$3225.6</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <div class="recent-item">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300" alt="">
+            <div>
+              <div class="product-brand">Apple</div>
+              <div class="recent-title">Alexa 8.8 HD (32GB) LED Desktop with TV</div>
+              <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+              <div class="mt-1">
+                <span class="product-price">$2556.3</span>
+                <span class="product-old-price">$3225.6</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <div class="recent-item">
+            <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=300" alt="">
+            <div>
+              <div class="product-brand">Apple</div>
+              <div class="recent-title">HP 24mh FHD Monitor - Computer Monitor with 23.8-inch</div>
+              <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+              <div class="mt-1">
+                <span class="product-price">$2656.3</span>
+                <span class="product-old-price">$3225.6</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <div class="recent-item">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300" alt="">
+            <div>
+              <div class="product-brand">Apple</div>
+              <div class="recent-title">Logitech K780 Wired Headset</div>
+              <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+              <div class="mt-1">
+                <span class="product-price">$2556.3</span>
+                <span class="product-old-price">$3225.6</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIMILAR PRODUCTS -->
+    <section class="section-block">
+      <h2 class="subsection-title">Similar products to compare</h2>
+
+      <div class="row g-4">
+        <div class="col-12 col-sm-6 col-lg-2-4">
+          <div class="product-card">
+            <span class="sale-badge">-17%</span>
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1527430253228-e93688616381?w=500" alt="">
+            </div>
+            <div class="product-brand">Apple</div>
+            <div class="product-name">Logitech MK345 Wireless Combo Full-sized Keyboard</div>
+            <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+            <div class="product-price-row">
+              <span class="product-price">$2856.3</span>
+              <span class="product-old-price">$3225.6</span>
+            </div>
+            <button class="btn btn-add-cart">Add To Cart</button>
+            <ul class="mini-features">
+              <li>27-inch diagonal Retina 5K display</li>
+              <li>3.2GHz 6-core processor</li>
+              <li>AMD Radeon graphics</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-2-4">
+          <div class="product-card">
+            <span class="sale-badge">-17%</span>
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" alt="">
+            </div>
+            <div class="product-brand">Apple</div>
+            <div class="product-name">Logitech Brio 4K Webcam, Ultra 4K HD Video Calling</div>
+            <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+            <div class="product-price-row">
+              <span class="product-price">$2856.3</span>
+              <span class="product-old-price">$3225.6</span>
+            </div>
+            <button class="btn btn-add-cart">Add To Cart</button>
+            <ul class="mini-features">
+              <li>27-inch diagonal Retina 5K display</li>
+              <li>3.2GHz 6-core processor</li>
+              <li>AMD Radeon graphics</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-2-4">
+          <div class="product-card">
+            <span class="sale-badge">-17%</span>
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500" alt="">
+            </div>
+            <div class="product-brand">Apple</div>
+            <div class="product-name">HP 24mh FHD Monitor - Computer Monitor</div>
+            <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+            <div class="product-price-row">
+              <span class="product-price">$2856.3</span>
+              <span class="product-old-price">$3225.6</span>
+            </div>
+            <button class="btn btn-add-cart">Add To Cart</button>
+            <ul class="mini-features">
+              <li>27-inch diagonal Retina 5K display</li>
+              <li>3.2GHz 6-core processor</li>
+              <li>AMD Radeon graphics</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-2-4">
+          <div class="product-card">
+            <span class="sale-badge">-17%</span>
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500" alt="">
+            </div>
+            <div class="product-brand">Apple</div>
+            <div class="product-name">2022 Apple iMac with Retina 5K Display 8GB RAM</div>
+            <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+            <div class="product-price-row">
+              <span class="product-price">$2856.3</span>
+              <span class="product-old-price">$3225.6</span>
+            </div>
+            <button class="btn btn-add-cart">Add To Cart</button>
+            <ul class="mini-features">
+              <li>27-inch diagonal Retina 5K display</li>
+              <li>3.2GHz 6-core processor</li>
+              <li>AMD Radeon graphics</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-2-4">
+          <div class="product-card">
+            <span class="sale-badge">-17%</span>
+            <div class="product-card-image">
+              <img src="https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500" alt="">
+            </div>
+            <div class="product-brand">Apple</div>
+            <div class="product-name">Seagate Portable 2TB External Hard Drive</div>
+            <div class="rating-stars">★★★★★ <span class="small-text">(65)</span></div>
+            <div class="product-price-row">
+              <span class="product-price">$2856.3</span>
+              <span class="product-old-price">$3225.6</span>
+            </div>
+            <button class="btn btn-add-cart">Add To Cart</button>
+            <ul class="mini-features">
+              <li>27-inch diagonal Retina 5K display</li>
+              <li>3.2GHz 6-core processor</li>
+              <li>AMD Radeon graphics</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOTTOM BANNER -->
+    <section class="section-block mb-0">
+      <div class="banner-box">
+        <div class="banner-left">
+          <img src="https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500" alt="iPhone group">
+        </div>
+
+        <div class="banner-content">
+          <div class="banner-main-title"><i class="bi bi-apple"></i> iPhone 13 Series</div>
+          <div style="font-size: 18px; color:#444; margin-bottom: 8px;">
+            Now Available at Cell City.
+          </div>
+          <div class="banner-small">
+            iPhone 13 Pro Max | iPhone 13 Pro | iPhone 13 | iPhone 13 mini
+          </div>
+        </div>
+
+        <div class="banner-right">
+          <img src="https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500" alt="iPhone single">
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <style>
+    /* Bootstrap doesn't include col-lg-2-4, so we simulate 5 columns */
+    @media (min-width: 992px) {
+      .col-lg-2-4 {
+        flex: 0 0 auto;
+        width: 20%;
+      }
+    }
+  </style>
+
+</body>
+</html>

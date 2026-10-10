@@ -1,0 +1,962 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ecom - Checkout</title>
+
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<style>
+:root {
+  --checkout-blue: #405b94;
+  --checkout-muted: #91a3c5;
+  --checkout-border: #dbe4f0;
+  --checkout-orange: #ff9433;
+  --checkout-light: #f5f8fc;
+}
+
+body {
+  background: #fff;
+  font-family: Arial, sans-serif;
+  color: var(--checkout-blue);
+  font-size: 13px;
+}
+
+.checkout-page {
+  max-width: 1170px;
+  margin: auto;
+  padding: 35px 15px 60px;
+}
+
+/* CHECKOUT PANELS */
+
+.checkout-panel {
+  border: 1px solid var(--checkout-border);
+  border-radius: 3px;
+  padding: 20px;
+  background: #fff;
+  height: 100%;
+}
+
+.checkout-heading {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--checkout-blue);
+  margin-bottom: 16px;
+}
+
+.checkout-muted {
+  color: var(--checkout-muted);
+}
+
+/* PAYMENT METHODS */
+
+.payment-methods {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.payment-method {
+  min-height: 51px;
+  border: 1px solid var(--checkout-border);
+  background: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 9px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.payment-method.active {
+  border-color: var(--checkout-blue);
+  background: #f7f9fd;
+}
+
+.payment-method.google .google-g {
+  font-size: 21px;
+  font-weight: 700;
+  color: #4285f4;
+}
+
+.payment-method.google span:last-child {
+  color: #666;
+}
+
+.payment-method.paypal {
+  color: #003087;
+  font-style: italic;
+}
+
+.payment-method.amazon {
+  color: #343434;
+  font-size: 15px;
+}
+
+.payment-method.amazon strong {
+  font-weight: 800;
+}
+
+/* OR DIVIDER */
+
+.checkout-or {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 23px 0 20px;
+  color: var(--checkout-muted);
+  font-size: 13px;
+}
+
+.checkout-or::before,
+.checkout-or::after {
+  content: "";
+  height: 2px;
+  background: var(--checkout-border);
+  flex: 1;
+}
+
+/* FORMS */
+
+.checkout-subheading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.checkout-subheading h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.checkout-subheading small {
+  color: var(--checkout-muted);
+  font-size: 11px;
+}
+
+.checkout-subheading a {
+  color: #22a8ed;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.checkout-form .form-control,
+.checkout-form .form-select {
+  min-height: 35px;
+  border: 1px solid var(--checkout-border);
+  border-radius: 3px;
+  font-size: 12px;
+  color: var(--checkout-blue);
+  box-shadow: none;
+}
+
+.checkout-form .form-control:focus,
+.checkout-form .form-select:focus {
+  border-color: #7d9bc9;
+  box-shadow: 0 0 0 2px rgba(64,91,148,.07);
+}
+
+.checkout-form .form-control::placeholder {
+  color: #a2b2cf;
+}
+
+.checkout-form textarea.form-control {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.checkout-form .form-check {
+  margin-top: 10px;
+  margin-bottom: 28px;
+}
+
+.checkout-form .form-check-label {
+  font-size: 11px;
+  color: var(--checkout-blue);
+}
+
+.checkout-form .form-check-input {
+  border-color: #a8b9d4;
+  border-radius: 1px;
+}
+
+.checkout-form .form-check-input:checked {
+  background-color: var(--checkout-blue);
+  border-color: var(--checkout-blue);
+}
+
+.shipping-title {
+  margin-bottom: 20px;
+}
+
+.checkout-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.return-cart {
+  color: #159fe9;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.return-cart:hover {
+  text-decoration: underline;
+}
+
+.btn-checkout {
+  background: var(--checkout-blue);
+  border: 1px solid var(--checkout-blue);
+  color: white;
+  border-radius: 2px;
+  padding: 11px 19px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.btn-checkout:hover {
+  background: #304a7e;
+  color: #fff;
+}
+
+/* ORDER SUMMARY */
+
+.order-panel-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 17px;
+}
+
+.order-product {
+  border: 1px solid var(--checkout-border);
+  border-radius: 3px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 125px;
+  margin-bottom: 10px;
+}
+
+.order-product-image {
+  width: 100px;
+  height: 90px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.order-product-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.order-product-name {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 7px;
+}
+
+.order-rating {
+  color: var(--checkout-orange);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.order-rating span {
+  color: var(--checkout-muted);
+  font-size: 10px;
+}
+
+.order-qty {
+  color: var(--checkout-muted);
+  font-weight: 700;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.order-item-price {
+  color: var(--checkout-blue);
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* COUPON */
+
+.coupon-area {
+  margin: 16px 0 17px;
+}
+
+.coupon-area .form-control {
+  height: 36px;
+  border: 1px solid var(--checkout-border);
+  border-radius: 3px;
+  font-size: 12px;
+  box-shadow: none;
+}
+
+.coupon-area .form-control::placeholder {
+  color: #a2b2cf;
+}
+
+.coupon-button {
+  min-width: 80px;
+  border: 0;
+  background: var(--checkout-blue);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 2px;
+}
+
+/* TOTALS */
+
+.order-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 0;
+  font-size: 13px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--checkout-border);
+}
+
+.order-total-row strong {
+  font-size: 17px;
+}
+
+.order-total-row.final-total {
+  border: none;
+  font-weight: 700;
+}
+
+.order-total-row.final-total strong {
+  font-size: 19px;
+}
+
+.order-status {
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+/* BENEFITS */
+
+.checkout-benefits {
+  margin-top: 95px;
+}
+
+.benefit-card {
+  border: 1px solid #d2deeb;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px;
+  min-height: 75px;
+  height: 100%;
+  background: white;
+}
+
+.benefit-icon {
+  color: var(--checkout-blue);
+  font-size: 29px;
+  flex-shrink: 0;
+}
+
+.benefit-title {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 4px;
+  white-space: nowrap;
+}
+
+.benefit-description {
+  font-size: 11px;
+  color: var(--checkout-muted);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1199px) {
+  .order-product {
+    flex-wrap: wrap;
+  }
+  .order-product-info {
+    flex-basis: calc(100% - 115px);
+  }
+}
+
+@media (max-width: 991px) {
+  .checkout-benefits {
+    margin-top: 55px;
+  }
+}
+
+@media (max-width: 575px) {
+  .checkout-page {
+    padding-top: 22px;
+  }
+  .checkout-panel {
+    padding: 15px;
+  }
+  .payment-method {
+    font-size: 12px;
+    min-height: 47px;
+    padding: 5px;
+  }
+  .order-product-image {
+    width: 75px;
+    height: 75px;
+  }
+  .order-product-info {
+    flex-basis: calc(100% - 90px);
+  }
+  .order-product-name {
+    font-size: 12px;
+  }
+  .benefit-title {
+    font-size: 14px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main class="checkout-page">
+
+<div class="row g-4">
+
+  <!-- LEFT SIDE: CHECKOUT FORM -->
+  <div class="col-12 col-lg-6">
+
+    <div class="checkout-panel">
+
+      <!-- PAYMENT METHODS -->
+      <div class="payment-methods">
+
+        <button type="button" class="payment-method google"
+                data-payment="google"
+                aria-pressed="false">
+          <span class="google-g">G</span>
+          <span>Pay</span>
+        </button>
+
+        <button type="button" class="payment-method paypal"
+                data-payment="paypal"
+                aria-pressed="false">
+          <i class="bi bi-paypal"></i>
+          PayPal
+        </button>
+
+        <button type="button" class="payment-method amazon"
+                data-payment="amazon"
+                aria-pressed="false">
+          <strong>amazon</strong> pay
+        </button>
+
+      </div>
+
+      <div class="checkout-or">Or</div>
+
+      <!-- CHECKOUT FORM -->
+      <form id="checkoutForm" class="checkout-form">
+
+        <div class="checkout-subheading">
+          <h3>Contact information</h3>
+          <small>
+            Already have an account?
+            <a href="#">Login</a>
+          </small>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="mb-2">
+          <input type="email"
+                 class="form-control"
+                 name="email"
+                 placeholder="Email*"
+                 autocomplete="email"
+                 required>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input"
+                 type="checkbox"
+                 id="newsletter">
+          <label class="form-check-label" for="newsletter">
+            Keep me up to date on news and exclusive offers
+          </label>
+        </div>
+
+        <!-- SHIPPING ADDRESS -->
+        <h3 class="checkout-heading shipping-title">
+          Shipping address
+        </h3>
+
+        <div class="row g-3">
+
+          <!-- FIRST NAME -->
+          <div class="col-md-6">
+            <input type="text"
+                   class="form-control"
+                   name="first_name"
+                   placeholder="First name*"
+                   autocomplete="given-name"
+                   required>
+          </div>
+
+          <!-- LAST NAME -->
+          <div class="col-md-6">
+            <input type="text"
+                   class="form-control"
+                   name="last_name"
+                   placeholder="Last name*"
+                   autocomplete="family-name"
+                   required>
+          </div>
+
+          <!-- ADDRESS 1 -->
+          <div class="col-12">
+            <input type="text"
+                   class="form-control"
+                   name="address1"
+                   placeholder="Address 1*"
+                   autocomplete="address-line1"
+                   required>
+          </div>
+
+          <!-- ADDRESS 2 -->
+          <div class="col-12">
+            <input type="text"
+                   class="form-control"
+                   name="address2"
+                   placeholder="Address 2*"
+                   autocomplete="address-line2">
+          </div>
+
+          <!-- COUNTRY -->
+          <div class="col-md-6">
+            <select class="form-select"
+                    name="country"
+                    id="country"
+                    autocomplete="country-name"
+                    required>
+              <option value="" selected disabled>
+                Select an option...
+              </option>
+              <option value="United States">United States</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="Canada">Canada</option>
+              <option value="Germany">Germany</option>
+              <option value="Türkiye">Türkiye</option>
+            </select>
+          </div>
+
+          <!-- CITY -->
+          <div class="col-md-6">
+            <input type="text"
+                   class="form-control"
+                   name="city"
+                   placeholder="City*"
+                   autocomplete="address-level2"
+                   required>
+          </div>
+
+          <!-- ZIP -->
+          <div class="col-12">
+            <input type="text"
+                   class="form-control"
+                   name="postal_code"
+                   placeholder="PostCode / ZIP*"
+                   autocomplete="postal-code"
+                   required>
+          </div>
+
+          <!-- COMPANY -->
+          <div class="col-md-6">
+            <input type="text"
+                   class="form-control"
+                   name="company"
+                   placeholder="Company name"
+                   autocomplete="organization">
+          </div>
+
+          <!-- PHONE -->
+          <div class="col-md-6">
+            <input type="tel"
+                   class="form-control"
+                   name="phone"
+                   placeholder="Phone*"
+                   autocomplete="tel"
+                   required>
+          </div>
+
+          <!-- ADDITIONAL INFORMATION -->
+          <div class="col-12">
+            <textarea class="form-control"
+                      name="notes"
+                      rows="4"
+                      placeholder="Additional Information"></textarea>
+          </div>
+
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="checkout-actions">
+
+          <a href="cart.html" class="return-cart">
+            <i class="bi bi-arrow-left"></i>
+            Return to cart
+          </a>
+
+          <button type="submit" class="btn btn-checkout">
+            Place an Order
+            <i class="bi bi-arrow-right ms-1"></i>
+          </button>
+
+        </div>
+
+        <div id="checkoutMessage"
+             class="order-status"
+             role="status"
+             aria-live="polite"></div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- RIGHT SIDE: YOUR ORDER -->
+  <div class="col-12 col-lg-6">
+
+    <div class="checkout-panel">
+
+      <h2 class="order-panel-title">Your Order</h2>
+
+      <!-- ORDER PRODUCT 1 -->
+      <article class="order-product">
+
+        <div class="order-product-image">
+          <img
+            src="https://images.unsplash.com/photo-1527430253228-e93688616381?w=300"
+            alt="Desktop computer">
+        </div>
+
+        <div class="order-product-info">
+          <div class="order-product-name">
+            Gateway 23.8" All-in-one Desktop,
+            Fully Adjustable Stand
+          </div>
+
+          <div class="order-rating">
+            ★★★★★ <span>(65)</span>
+          </div>
+        </div>
+
+        <div class="order-qty">x1</div>
+        <div class="order-item-price">$2.51</div>
+
+      </article>
+
+      <!-- ORDER PRODUCT 2 -->
+      <article class="order-product">
+
+        <div class="order-product-image">
+          <img
+            src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300"
+            alt="Laptop computer">
+        </div>
+
+        <div class="order-product-info">
+          <div class="order-product-name">
+            HP 24 All-in-One PC, Intel Core
+            i3-1115G4, 4GB RAM
+          </div>
+
+          <div class="order-rating">
+            ★★★★★ <span>(65)</span>
+          </div>
+        </div>
+
+        <div class="order-qty">x1</div>
+        <div class="order-item-price">$1.51</div>
+
+      </article>
+
+      <!-- ORDER PRODUCT 3 -->
+      <article class="order-product">
+
+        <div class="order-product-image">
+          <img
+            src="https://images.unsplash.com/photo-1592840496694-26d035b52b48?w=300"
+            alt="Gaming controller">
+        </div>
+
+        <div class="order-product-info">
+          <div class="order-product-name">
+            Dell Optiplex 9020 Small Form
+            Business Desktop Tower PC
+          </div>
+
+          <div class="order-rating">
+            ★★★★★ <span>(65)</span>
+          </div>
+        </div>
+
+        <div class="order-qty">x1</div>
+        <div class="order-item-price">$3.51</div>
+
+      </article>
+
+      <!-- COUPON -->
+      <div class="coupon-area">
+
+        <div class="d-flex gap-2">
+
+          <input type="text"
+                 class="form-control"
+                 id="couponCode"
+                 placeholder="Enter Your Coupon">
+
+          <button type="button"
+                  class="coupon-button"
+                  id="applyCoupon">
+            Apply
+          </button>
+
+        </div>
+
+        <div id="couponMessage"
+             class="mt-2 small"
+             role="status"
+             aria-live="polite"></div>
+
+      </div>
+
+      <!-- ORDER TOTALS -->
+      <div class="order-total-row">
+        <span>Subtotal</span>
+        <strong id="orderSubtotal">$7.53</strong>
+      </div>
+
+      <div class="order-total-row">
+        <span>Shipping</span>
+        <span id="shippingValue">–</span>
+      </div>
+
+      <div class="order-total-row" id="discountRow" hidden>
+        <span>Discount</span>
+        <strong id="discountValue">-$0.00</strong>
+      </div>
+
+      <div class="order-total-row final-total">
+        <span>Total</span>
+        <strong id="orderTotal">$7.53</strong>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- SERVICES / BENEFITS -->
+<section class="checkout-benefits"
+         aria-label="Shopping benefits">
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-3">
+
+    <!-- FREE DELIVERY -->
+    <div class="col">
+      <div class="benefit-card">
+
+        <i class="bi bi-airplane benefit-icon"></i>
+
+        <div>
+          <div class="benefit-title">Free Delivery</div>
+          <div class="benefit-description">
+            From all orders over $10
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SUPPORT -->
+    <div class="col">
+      <div class="benefit-card">
+
+        <i class="bi bi-headset benefit-icon"></i>
+
+        <div>
+          <div class="benefit-title">Support 24/7</div>
+          <div class="benefit-description">
+            Shop with an expert
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- GIFT VOUCHER -->
+    <div class="col">
+      <div class="benefit-card">
+
+        <i class="bi bi-gift benefit-icon"></i>
+
+        <div>
+          <div class="benefit-title">Gift voucher</div>
+          <div class="benefit-description">
+            Refer a friend
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RETURN -->
+    <div class="col">
+      <div class="benefit-card">
+
+        <i class="bi bi-box-seam benefit-icon"></i>
+
+        <div>
+          <div class="benefit-title">Return & Refund</div>
+          <div class="benefit-description">
+            Free return over $200
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECURE PAYMENT -->
+    <div class="col">
+      <div class="benefit-card">
+
+        <i class="bi bi-shield-lock benefit-icon"></i>
+
+        <div>
+          <div class="benefit-title">Secure payment</div>
+          <div class="benefit-description">
+            100% Protected
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+<script>
+/*
+  JavaScript is used only for small interactions.
+  No cards or page sections are generated by JS.
+*/
+
+// PAYMENT METHOD SELECTION
+const paymentButtons = document.querySelectorAll(".payment-method");
+let selectedPayment = "";
+
+paymentButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    paymentButtons.forEach(item => {
+      item.classList.remove("active");
+      item.setAttribute("aria-pressed", "false");
+    });
+
+    button.classList.add("active");
+    button.setAttribute("aria-pressed", "true");
+    selectedPayment = button.dataset.payment;
+  });
+});
+
+// DEMO ORDER TOTALS
+const subtotal = 7.53;
+let discountRate = 0;
+
+const orderSubtotal = document.getElementById("orderSubtotal");
+const orderTotal = document.getElementById("orderTotal");
+const discountRow = document.getElementById("discountRow");
+const discountValue = document.getElementById("discountValue");
+
+function formatPrice(number) {
+  return "$" + number.toFixed(2);
+}
+
+function updateOrderTotals() {
+  const discount = subtotal * discountRate;
+  const total = subtotal - discount;
+
+  orderSubtotal.textContent = formatPrice(subtotal);
+  orderTotal.textContent = formatPrice(total);
+
+  discountRow.hidden = discount === 0;
+  discountValue.textContent = "-" + formatPrice(discount);
+}
+
+// APPLY DEMO COUPON
+document.getElementById("applyCoupon").addEventListener("click", () => {
+  const input = document.getElementById("couponCode");
+  const message = document.getElementById("couponMessage");
+
+  if (input.value.trim().toUpperCase() === "SAVE10") {
+    discountRate = 0.10;
+    message.textContent = "Coupon applied! 10% discount.";
+    message.className = "mt-2 small text-success";
+  } else {
+    discountRate = 0;
+    message.textContent = "Invalid coupon code.";
+    message.className = "mt-2 small text-danger";
+  }
+
+  updateOrderTotals();
+});
+
+// DEMONSTRATION FORM ONLY
+document.getElementById("checkoutForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const message = document.getElementById("checkoutMessage");
+
+  message.className = "order-status text-primary";
+  message.textContent =
+    "Demo only: Your form is valid. No order or payment has been submitted.";
+});
+
+updateOrderTotals();
+</script>
+
+</body>
+</html>

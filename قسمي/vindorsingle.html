@@ -1,0 +1,811 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vendor Single - Products</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #405c94;
+      --muted: #8698bb;
+      --border: #d9e2ee;
+      --orange: #ff922e;
+      --light: #f1f5f9;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: var(--primary);
+      background: #fff;
+    }
+
+    .vendor-single {
+      max-width: 1200px;
+      padding: 35px 15px 65px;
+      margin: auto;
+    }
+
+    /* Vendor header */
+
+    .vendor-cover {
+      position: relative;
+      height: 175px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .vendor-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .vendor-profile {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 14px 15px 14px 150px;
+      border: 1px solid var(--border);
+      border-top: none;
+      min-height: 76px;
+    }
+
+    .vendor-brand {
+      position: absolute;
+      width: 105px;
+      height: 99px;
+      left: 18px;
+      top: -38px;
+      border: 1px solid var(--border);
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .vendor-brand strong {
+      font-size: 15px;
+      color: #26314c;
+    }
+
+    .brand-mark {
+      color: #ff8c24;
+      font-size: 23px;
+    }
+
+    .brand-products {
+      background: var(--primary);
+      color: white;
+      font-size: 10px;
+      padding: 6px 10px;
+    }
+
+    .vendor-name {
+      min-width: 170px;
+    }
+
+    .vendor-name h2 {
+      margin: 0 0 5px;
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    .vendor-name small,
+    .vendor-contact {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .stars {
+      color: var(--orange);
+      letter-spacing: -1px;
+    }
+
+    .vendor-contact {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      flex: 1;
+    }
+
+    .vendor-contact i {
+      color: var(--primary);
+      font-size: 18px;
+    }
+
+    .service-panel {
+      background: #f1f5f9;
+      padding: 17px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .service-item {
+      display: flex;
+      gap: 13px;
+      align-items: center;
+    }
+
+    .service-item i {
+      font-size: 27px;
+      color: #7089b8;
+    }
+
+    .service-item strong {
+      display: block;
+      font-size: 12px;
+      color: var(--primary);
+    }
+
+    .service-item span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* Toolbar */
+
+    .products-toolbar {
+      margin: 30px 0 22px;
+      padding: 13px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .filter-button {
+      background: var(--light);
+      color: var(--primary);
+      border: 0;
+      padding: 9px 13px;
+    }
+
+    .toolbar-controls {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .toolbar-controls select {
+      border: none;
+      background: transparent;
+      color: var(--primary);
+      outline: none;
+      cursor: pointer;
+      font-size: 11px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .view-button {
+      background: var(--light);
+      border: 0;
+      width: 30px;
+      height: 30px;
+      color: var(--primary);
+    }
+
+    .view-button.active {
+      color: var(--orange);
+    }
+
+    /* Product cards */
+
+    .products-grid {
+      --bs-gutter-x: 12px;
+      --bs-gutter-y: 14px;
+    }
+
+    .product-column {
+      width: 20%;
+    }
+
+    .product-card {
+      height: 100%;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      position: relative;
+      background: #fff;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow .2s;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 6px 20px rgba(30, 60, 100, .12);
+    }
+
+    .discount-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 4px 9px;
+      border-radius: 12px;
+      background: var(--orange);
+      color: white;
+      font-size: 10px;
+      font-weight: 600;
+      z-index: 1;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 175px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .product-image img {
+      max-width: 100%;
+      max-height: 160px;
+      object-fit: contain;
+      transition: transform .2s;
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.04);
+    }
+
+    .product-brand {
+      font-size: 10px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .product-title {
+      font-size: 12px;
+      line-height: 1.4;
+      min-height: 34px;
+      font-weight: 600;
+      margin-bottom: 7px;
+      color: var(--primary);
+    }
+
+    .product-rating {
+      font-size: 11px;
+      color: var(--orange);
+      margin-bottom: 9px;
+    }
+
+    .review-count {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .product-price {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .new-price {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .add-cart {
+      background: white;
+      color: var(--primary);
+      border: 1px solid #9eb3d7;
+      padding: 9px 8px;
+      width: 100%;
+      font-size: 11px;
+      font-weight: 600;
+      transition: .2s;
+    }
+
+    .add-cart:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .product-features {
+      padding-left: 15px;
+      margin: 12px 0 0;
+      color: var(--primary);
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    .product-features li::marker {
+      color: var(--primary);
+    }
+
+    /* List view */
+
+    .products-grid.list-view .product-column {
+      width: 100%;
+    }
+
+    .products-grid.list-view .product-card {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 12px 22px;
+      min-height: 220px;
+    }
+
+    .products-grid.list-view .product-image {
+      grid-row: span 7;
+      height: 190px;
+    }
+
+    .products-grid.list-view .product-title {
+      min-height: auto;
+    }
+
+    .products-grid.list-view .add-cart {
+      max-width: 180px;
+    }
+
+    /* Pagination */
+
+    .pagination {
+      gap: 5px;
+      margin-top: 30px;
+    }
+
+    .page-link {
+      border: 1px solid var(--border);
+      border-radius: 3px !important;
+      padding: 10px 15px;
+      color: var(--primary);
+      font-weight: 600;
+      box-shadow: none !important;
+    }
+
+    .page-item.active .page-link {
+      background: var(--orange);
+      color: white;
+      border-color: var(--orange);
+    }
+
+    .page-link:hover {
+      color: var(--orange);
+      background: #fff5ed;
+    }
+
+    .page-item.disabled .page-link {
+      opacity: .5;
+    }
+
+    @media (max-width: 1199px) {
+      .product-column { width: 25%; }
+      .vendor-profile { flex-wrap: wrap; }
+    }
+
+    @media (max-width: 991px) {
+      .product-column { width: 33.3333%; }
+      .service-panel { flex-direction: row; flex-wrap: wrap; }
+      .service-item { width: calc(50% - 10px); }
+    }
+
+    @media (max-width: 767px) {
+      .product-column { width: 50%; }
+      .vendor-profile {
+        padding: 75px 15px 15px;
+        gap: 12px;
+      }
+      .vendor-brand { left: 15px; top: -35px; }
+      .vendor-name { width: 100%; }
+      .vendor-contact { min-width: 100%; }
+      .product-image { height: 135px; }
+      .product-image img { max-height: 125px; }
+      .product-card { padding: 10px; }
+      .product-title { font-size: 11px; }
+      .product-price { flex-wrap: wrap; gap: 5px; }
+      .service-item { width: 100%; }
+      .products-grid.list-view .product-card {
+        grid-template-columns: 120px 1fr;
+      }
+      .products-grid.list-view .product-image { height: 120px; }
+    }
+
+    @media (max-width: 420px) {
+      .toolbar-controls { gap: 7px; }
+      .page-link { padding: 8px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<main class="vendor-single">
+
+  <!-- Vendor Information -->
+  <section class="row g-3 align-items-stretch">
+
+    <div class="col-12 col-lg-9">
+      <div class="vendor-cover">
+        <img
+          src="https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=1400&q=85"
+          alt="Factory production facility">
+      </div>
+
+      <div class="vendor-profile">
+        <div class="vendor-brand">
+          <strong><span class="brand-mark">◈</span> Fasfox</strong>
+          <span class="brand-products">360 Products</span>
+        </div>
+
+        <div class="vendor-name">
+          <h2>Fasfox Corporation</h2>
+          <small>Member since 2012 &nbsp;
+            <span class="stars">★★★★★</span> (65)
+          </small>
+        </div>
+
+        <div class="vendor-contact">
+          <i class="bi bi-geo-alt"></i>
+          <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span>
+        </div>
+
+        <div class="vendor-contact">
+          <i class="bi bi-telephone"></i>
+          <span>(+91) - 540-025-124553</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Services -->
+    <div class="col-12 col-lg-3">
+      <div class="service-panel">
+
+        <div class="service-item">
+          <i class="bi bi-airplane"></i>
+          <div>
+            <strong>Free Delivery</strong>
+            <span>From all orders over $10</span>
+          </div>
+        </div>
+
+        <div class="service-item">
+          <i class="bi bi-headset"></i>
+          <div>
+            <strong>Support 24/7</strong>
+            <span>Shop with an expert</span>
+          </div>
+        </div>
+
+        <div class="service-item">
+          <i class="bi bi-box-seam"></i>
+          <div>
+            <strong>Return & Refund</strong>
+            <span>Free return over $200</span>
+          </div>
+        </div>
+
+        <div class="service-item">
+          <i class="bi bi-shield-lock"></i>
+          <div>
+            <strong>Secure payment</strong>
+            <span>100% Protected</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Products Toolbar -->
+  <div class="products-toolbar">
+
+    <button class="filter-button" id="filterReset">
+      <i class="bi bi-sliders"></i> All Filters
+    </button>
+
+    <div class="toolbar-controls">
+      <span id="resultsText">Showing 16-30 of 120 results</span>
+
+      <label for="sortSelect" class="muted">Sort by:</label>
+      <select id="sortSelect">
+        <option value="latest">Latest products</option>
+        <option value="priceLow">Price: Low to High</option>
+        <option value="priceHigh">Price: High to Low</option>
+        <option value="name">Name A-Z</option>
+      </select>
+
+      <label for="perPage" class="muted">Show</label>
+      <select id="perPage">
+        <option value="20">20 items</option>
+        <option value="30" selected>30 items</option>
+        <option value="10">10 items</option>
+      </select>
+
+      <button class="view-button active" id="gridButton" aria-label="Grid view">
+        <i class="bi bi-grid-fill"></i>
+      </button>
+
+      <button class="view-button" id="listButton" aria-label="List view">
+        <i class="bi bi-list"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Products -->
+  <section class="row products-grid" id="productsGrid"></section>
+
+  <!-- Pagination -->
+  <nav aria-label="Product pages">
+    <ul class="pagination justify-content-center flex-wrap"
+        id="pagination"></ul>
+  </nav>
+
+</main>
+
+<script>
+  // Replace these demonstration image URLs with your product assets.
+  const productTypes = [
+    {
+      name: 'Samsung 36" French door 28 cu. ft. Smart Energy Star',
+      brand: "Apple",
+      price: 2856.3,
+      oldPrice: 3295.6,
+      image: "https://images.unsplash.com/photo-1527430253228-e93688616381?w=500&q=85"
+    },
+    {
+      name: "2022 Apple iMac with Retina 5K Display 8GB RAM",
+      brand: "Apple",
+      price: 2856.3,
+      oldPrice: 3295.6,
+      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=85"
+    },
+    {
+      name: 'Samsung 36" French door 28 cu. ft. Smart Energy Star',
+      brand: "Apple",
+      price: 2856.3,
+      oldPrice: 3295.6,
+      image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&q=85"
+    },
+    {
+      name: "2022 Apple iMac with Retina 5K Display 8GB RAM",
+      brand: "Apple",
+      price: 2856.3,
+      oldPrice: 3295.6,
+      image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=85"
+    },
+    {
+      name: 'Samsung 36" French door 28 cu. ft. Smart Energy Star',
+      brand: "Apple",
+      price: 2856.3,
+      oldPrice: 3295.6,
+      image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&q=85"
+    }
+  ];
+
+  const products = Array.from({ length: 120 }, (_, i) => {
+    const type = productTypes[i % productTypes.length];
+
+    return {
+      id: i + 1,
+      ...type,
+      price: +(type.price + Math.floor(i / 5) * 5).toFixed(2),
+      rating: 65,
+      discount: 17
+    };
+  });
+
+  let currentPage = 2;
+  let perPage = 30;
+  let sortType = "latest";
+  let viewType = "grid";
+
+  const grid = document.getElementById("productsGrid");
+  const pagination = document.getElementById("pagination");
+
+  const formatPrice = value =>
+    "$" + Number(value).toFixed(2);
+
+  function productCard(product) {
+    return `
+      <div class="product-column">
+        <article class="product-card">
+
+          <span class="discount-badge">-${product.discount}%</span>
+
+          <div class="product-image">
+            <img src="${product.image}"
+                 alt="${product.name}"
+                 loading="lazy">
+          </div>
+
+          <div class="product-brand">${product.brand}</div>
+
+          <div class="product-title">${product.name}</div>
+
+          <div class="product-rating">
+            ★★★★★ <span class="review-count">(${product.rating})</span>
+          </div>
+
+          <div class="product-price">
+            <span class="new-price">${formatPrice(product.price)}</span>
+            <span class="old-price">${formatPrice(product.oldPrice)}</span>
+          </div>
+
+          <button class="add-cart" data-id="${product.id}">
+            Add To Cart
+          </button>
+
+          <ul class="product-features">
+            <li>27-inch diagonal Retina 5K display</li>
+            <li>3.2GHz 6-core Intel processor</li>
+            <li>AMD Radeon Pro graphics</li>
+          </ul>
+
+        </article>
+      </div>
+    `;
+  }
+
+  function getSortedProducts() {
+    const result = [...products];
+
+    if (sortType === "priceLow") {
+      result.sort((a, b) => a.price - b.price);
+    }
+
+    if (sortType === "priceHigh") {
+      result.sort((a, b) => b.price - a.price);
+    }
+
+    if (sortType === "name") {
+      result.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    return result;
+  }
+
+  function pageButton(label, page, active = false, disabled = false) {
+    return `
+      <li class="page-item ${active ? "active" : ""} ${disabled ? "disabled" : ""}">
+        <button type="button"
+                class="page-link"
+                data-page="${page}"
+                ${disabled ? "disabled" : ""}>
+          ${label}
+        </button>
+      </li>
+    `;
+  }
+
+  function renderPagination(totalPages) {
+    let html = pageButton(
+      '<i class="bi bi-chevron-left"></i>',
+      currentPage - 1,
+      false,
+      currentPage === 1
+    );
+
+    // Display up to six page numbers, as in the reference.
+    const maxVisible = 6;
+    const startPage = Math.max(
+      1,
+      Math.min(currentPage - 2, totalPages - maxVisible + 1)
+    );
+    const endPage = Math.min(totalPages, startPage + maxVisible - 1);
+
+    for (let i = startPage; i <= endPage; i++) {
+      html += pageButton(i, i, currentPage === i);
+    }
+
+    html += pageButton(
+      '<i class="bi bi-chevron-right"></i>',
+      currentPage + 1,
+      false,
+      currentPage === totalPages
+    );
+
+    pagination.innerHTML = html;
+
+    pagination.querySelectorAll("button:not(:disabled)")
+      .forEach(button => {
+        button.addEventListener("click", () => {
+          currentPage = Number(button.dataset.page);
+          renderProducts();
+        });
+      });
+  }
+
+  function renderProducts() {
+    const sorted = getSortedProducts();
+    const totalPages = Math.max(1, Math.ceil(sorted.length / perPage));
+
+    currentPage = Math.min(currentPage, totalPages);
+
+    const start = (currentPage - 1) * perPage;
+    const displayed = sorted.slice(start, start + perPage);
+
+    grid.classList.toggle("list-view", viewType === "list");
+    grid.innerHTML = displayed.map(productCard).join("");
+
+    const from = displayed.length ? start + 1 : 0;
+    const to = Math.min(start + perPage, sorted.length);
+
+    document.getElementById("resultsText").textContent =
+      `Showing ${from}-${to} of ${sorted.length} results`;
+
+    renderPagination(totalPages);
+  }
+
+  // Sort
+  document.getElementById("sortSelect").addEventListener("change", e => {
+    sortType = e.target.value;
+    currentPage = 1;
+    renderProducts();
+  });
+
+  // Items per page
+  document.getElementById("perPage").addEventListener("change", e => {
+    perPage = Number(e.target.value);
+    currentPage = 1;
+    renderProducts();
+  });
+
+  // Grid view
+  document.getElementById("gridButton").addEventListener("click", () => {
+    viewType = "grid";
+    document.getElementById("gridButton").classList.add("active");
+    document.getElementById("listButton").classList.remove("active");
+    renderProducts();
+  });
+
+  // List view
+  document.getElementById("listButton").addEventListener("click", () => {
+    viewType = "list";
+    document.getElementById("listButton").classList.add("active");
+    document.getElementById("gridButton").classList.remove("active");
+    renderProducts();
+  });
+
+  // Reset filters
+  document.getElementById("filterReset").addEventListener("click", () => {
+    sortType = "latest";
+    perPage = 30;
+    currentPage = 1;
+    document.getElementById("sortSelect").value = "latest";
+    document.getElementById("perPage").value = "30";
+    renderProducts();
+  });
+
+  // Demo cart interaction
+  grid.addEventListener("click", e => {
+    const button = e.target.closest(".add-cart");
+    if (!button) return;
+
+    button.textContent = "Added ✓";
+    button.style.backgroundColor = "#405c94";
+    button.style.color = "#fff";
+  });
+
+  renderProducts();
+</script>
+
+</body>
+</html>

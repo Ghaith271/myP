@@ -1,0 +1,1118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ecom - Wishlist</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<style>
+:root {
+  --wish-blue:#405b94;
+  --wish-muted:#8fa2c3;
+  --wish-border:#dbe4ef;
+  --wish-orange:#ff9230;
+  --wish-light:#f2f6fa;
+}
+
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  font-size:13px;
+  color:var(--wish-blue);
+  background:white;
+}
+
+.wishlist-page {
+  max-width:1170px;
+  margin:auto;
+  padding:30px 15px 55px;
+}
+
+.wish-section-title {
+  font-size:21px;
+  font-weight:700;
+  margin-bottom:24px;
+}
+
+/* WISHLIST TABLE */
+
+.wishlist-table {
+  margin-bottom:50px;
+}
+
+.wishlist-header {
+  display:grid;
+  grid-template-columns:55% 10% 13% 14% 8%;
+  background:#f1f5f9;
+  padding:11px 14px;
+  font-size:12px;
+  font-weight:700;
+  align-items:center;
+}
+
+.wishlist-item {
+  display:grid;
+  grid-template-columns:55% 10% 13% 14% 8%;
+  align-items:center;
+  gap:0;
+  padding:16px 12px;
+  border:1px solid var(--wish-border);
+  border-radius:3px;
+  margin-bottom:9px;
+  min-height:117px;
+}
+
+.wishlist-product {
+  display:flex;
+  align-items:center;
+  gap:17px;
+}
+
+.wishlist-product img {
+  width:110px;
+  height:85px;
+  object-fit:contain;
+  flex-shrink:0;
+}
+
+.wishlist-checkbox {
+  width:13px;
+  height:13px;
+  accent-color:var(--wish-blue);
+  cursor:pointer;
+}
+
+.wishlist-info {
+  min-width:0;
+}
+
+.wishlist-product-name {
+  font-size:13px;
+  font-weight:700;
+  line-height:1.45;
+  max-width:365px;
+  margin-bottom:5px;
+}
+
+.wishlist-rating {
+  font-size:12px;
+  color:var(--wish-orange);
+  white-space:nowrap;
+}
+
+.wishlist-rating span {
+  color:var(--wish-muted);
+  font-size:10px;
+}
+
+.wishlist-price {
+  font-size:17px;
+  font-weight:700;
+}
+
+.wishlist-stock {
+  background:#dce6ec;
+  color:var(--wish-blue);
+  padding:7px 10px;
+  font-size:11px;
+  font-weight:700;
+  border-radius:2px;
+  white-space:nowrap;
+}
+
+.wishlist-add {
+  padding:9px 16px;
+  min-width:108px;
+  border:1px solid #afc0da;
+  border-radius:2px;
+  background:white;
+  color:var(--wish-blue);
+  font-size:11px;
+  font-weight:700;
+}
+
+.wishlist-add:hover,
+.wishlist-add.added {
+  background:var(--wish-blue);
+  color:white;
+}
+
+.wishlist-remove {
+  background:transparent;
+  border:0;
+  color:var(--wish-blue);
+  padding:8px;
+  font-size:16px;
+}
+
+.wishlist-remove:hover {
+  color:#e15252;
+}
+
+/* RECOMMENDED PRODUCTS */
+
+.wish-recommendations {
+  margin-bottom:50px;
+}
+
+.wish-product-card {
+  border:1px solid var(--wish-border);
+  border-radius:3px;
+  padding:12px;
+  height:100%;
+  position:relative;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+}
+
+.wish-product-card:hover {
+  box-shadow:0 6px 18px rgba(40,70,120,.1);
+}
+
+.wish-discount {
+  position:absolute;
+  top:12px;
+  left:12px;
+  padding:4px 9px;
+  border-radius:13px;
+  background:var(--wish-orange);
+  color:white;
+  font-size:10px;
+  font-weight:700;
+}
+
+.wish-product-image {
+  height:155px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:12px;
+}
+
+.wish-product-image img {
+  max-width:100%;
+  max-height:145px;
+  object-fit:contain;
+}
+
+.wish-brand {
+  font-size:10px;
+  color:var(--wish-muted);
+  margin-bottom:5px;
+}
+
+.wish-product-name {
+  font-size:12px;
+  font-weight:700;
+  line-height:1.45;
+  min-height:52px;
+  margin-bottom:7px;
+}
+
+.wish-card-rating {
+  color:var(--wish-orange);
+  font-size:11px;
+}
+
+.wish-card-rating span {
+  color:var(--wish-muted);
+  font-size:10px;
+}
+
+.wish-card-price {
+  font-size:17px;
+  font-weight:700;
+  margin:10px 0 13px;
+}
+
+.wish-old-price {
+  color:var(--wish-muted);
+  text-decoration:line-through;
+  font-size:11px;
+  font-weight:400;
+  margin-left:6px;
+}
+
+.wish-card-button {
+  display:block;
+  width:100%;
+  padding:9px;
+  background:white;
+  border:1px solid #afc0da;
+  color:var(--wish-blue);
+  border-radius:2px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.wish-card-button:hover,
+.wish-card-button.added {
+  background:var(--wish-blue);
+  color:white;
+}
+
+.wish-features {
+  padding-left:14px;
+  margin:12px 0 0;
+  font-size:10px;
+  line-height:1.8;
+}
+
+/* RECENTLY VIEWED */
+
+.wish-recent-section {
+  margin-bottom:70px;
+}
+
+.wish-recent-card {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-height:115px;
+}
+
+.wish-recent-card img {
+  width:85px;
+  height:90px;
+  object-fit:contain;
+  flex-shrink:0;
+}
+
+.wish-recent-info {
+  min-width:0;
+}
+
+.wish-recent-name {
+  font-size:12px;
+  font-weight:700;
+  line-height:1.5;
+  margin-bottom:5px;
+}
+
+.wish-recent-price {
+  font-size:16px;
+  font-weight:700;
+  margin-top:8px;
+}
+
+/* SERVICES */
+
+.wish-benefit-card {
+  min-height:72px;
+  height:100%;
+  border:1px solid #d2deeb;
+  border-radius:3px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  background:white;
+}
+
+.wish-benefit-icon {
+  font-size:28px;
+  color:var(--wish-blue);
+  flex-shrink:0;
+}
+
+.wish-benefit-title {
+  font-size:15px;
+  font-weight:700;
+  margin-bottom:4px;
+  white-space:nowrap;
+}
+
+.wish-benefit-desc {
+  font-size:11px;
+  color:var(--wish-muted);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:991px) {
+  .wishlist-header {
+    display:none;
+  }
+
+  .wishlist-item {
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+  }
+
+  .wishlist-product {
+    grid-column:1/-1;
+  }
+
+  .wishlist-item > div:last-child {
+    text-align:right;
+  }
+}
+
+@media(max-width:575px) {
+  .wishlist-page {
+    padding-top:20px;
+  }
+
+  .wishlist-item {
+    padding:12px;
+  }
+
+  .wishlist-product {
+    gap:9px;
+  }
+
+  .wishlist-product img {
+    width:80px;
+    height:75px;
+  }
+
+  .wishlist-product-name {
+    font-size:11px;
+  }
+
+  .wishlist-price {
+    font-size:15px;
+  }
+
+  .wish-product-image {
+    height:130px;
+  }
+
+  .wish-product-image img {
+    max-height:120px;
+  }
+
+  .wish-product-name {
+    font-size:11px;
+  }
+
+  .wish-recent-card img {
+    width:70px;
+  }
+
+  .wish-benefit-title {
+    font-size:14px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main class="wishlist-page">
+
+<!-- WISHLIST TABLE -->
+<section class="wishlist-table" aria-label="Wishlist products">
+
+  <div class="wishlist-header">
+    <div>
+      <input type="checkbox" class="wishlist-checkbox" id="selectAll">
+      &nbsp; Product
+    </div>
+    <div>Price</div>
+    <div>Stock status</div>
+    <div>Action</div>
+    <div>Remove</div>
+  </div>
+
+  <div id="wishlistItems">
+
+    <!-- PRODUCT 1 -->
+    <article class="wishlist-item">
+      <div class="wishlist-product">
+
+        <input type="checkbox" class="wishlist-checkbox item-check"
+               aria-label="Select product 1">
+
+        <img src="https://images.unsplash.com/photo-1527430253228-e93688616381?w=300"
+             alt="Desktop PC">
+
+        <div class="wishlist-info">
+          <div class="wishlist-product-name">
+            Samsung 36" French door 28 cu. ft. Smart Energy Star Refrigerator
+          </div>
+          <div class="wishlist-rating">
+            ★★★★★ <span>(65)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wishlist-price">$2.51</div>
+
+      <div>
+        <span class="wishlist-stock">In Stock</span>
+      </div>
+
+      <div>
+        <button class="wishlist-add" type="button">Add to Cart</button>
+      </div>
+
+      <div>
+        <button class="wishlist-remove" type="button" aria-label="Remove product">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </article>
+
+    <!-- PRODUCT 2 -->
+    <article class="wishlist-item">
+      <div class="wishlist-product">
+
+        <input type="checkbox" class="wishlist-checkbox item-check"
+               aria-label="Select product 2">
+
+        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300"
+             alt="Laptop">
+
+        <div class="wishlist-info">
+          <div class="wishlist-product-name">
+            Samsung 36" French door 28 cu. ft. Smart Energy Star Refrigerator
+          </div>
+          <div class="wishlist-rating">
+            ★★★★★ <span>(65)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wishlist-price">$1.51</div>
+      <div><span class="wishlist-stock">In Stock</span></div>
+
+      <div>
+        <button class="wishlist-add" type="button">Add to Cart</button>
+      </div>
+
+      <div>
+        <button class="wishlist-remove" type="button" aria-label="Remove product">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </article>
+
+    <!-- PRODUCT 3 -->
+    <article class="wishlist-item">
+      <div class="wishlist-product">
+
+        <input type="checkbox" class="wishlist-checkbox item-check"
+               aria-label="Select product 3">
+
+        <img src="https://images.unsplash.com/photo-1592840496694-26d035b52b48?w=300"
+             alt="Gaming controller">
+
+        <div class="wishlist-info">
+          <div class="wishlist-product-name">
+            Samsung 36" French door 28 cu. ft. Smart Energy Star Refrigerator
+          </div>
+          <div class="wishlist-rating">
+            ★★★★★ <span>(65)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wishlist-price">$3.51</div>
+      <div><span class="wishlist-stock">In Stock</span></div>
+
+      <div>
+        <button class="wishlist-add" type="button">Add to Cart</button>
+      </div>
+
+      <div>
+        <button class="wishlist-remove" type="button" aria-label="Remove product">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </article>
+
+    <!-- PRODUCT 4 -->
+    <article class="wishlist-item">
+      <div class="wishlist-product">
+
+        <input type="checkbox" class="wishlist-checkbox item-check"
+               aria-label="Select product 4">
+
+        <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=300"
+             alt="Computer">
+
+        <div class="wishlist-info">
+          <div class="wishlist-product-name">
+            Samsung 36" French door 28 cu. ft. Smart Energy Star Refrigerator
+          </div>
+          <div class="wishlist-rating">
+            ★★★★★ <span>(65)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wishlist-price">$4.51</div>
+      <div><span class="wishlist-stock">In Stock</span></div>
+
+      <div>
+        <button class="wishlist-add" type="button">Add to Cart</button>
+      </div>
+
+      <div>
+        <button class="wishlist-remove" type="button" aria-label="Remove product">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </article>
+
+    <!-- PRODUCT 5 -->
+    <article class="wishlist-item">
+      <div class="wishlist-product">
+
+        <input type="checkbox" class="wishlist-checkbox item-check"
+               aria-label="Select product 5">
+
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300"
+             alt="Smart device">
+
+        <div class="wishlist-info">
+          <div class="wishlist-product-name">
+            Samsung 36" French door 28 cu. ft. Smart Energy Star Refrigerator
+          </div>
+          <div class="wishlist-rating">
+            ★★★★★ <span>(65)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wishlist-price">$5.51</div>
+      <div><span class="wishlist-stock">In Stock</span></div>
+
+      <div>
+        <button class="wishlist-add" type="button">Add to Cart</button>
+      </div>
+
+      <div>
+        <button class="wishlist-remove" type="button" aria-label="Remove product">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </article>
+
+    <!-- PRODUCT 6 -->
+    <article class="wishlist-item">
+      <div class="wishlist-product">
+
+        <input type="checkbox" class="wishlist-checkbox item-check"
+               aria-label="Select product 6">
+
+        <img src="https://images.unsplash.com/photo-1527430253228-e93688616381?w=300"
+             alt="Desktop PC">
+
+        <div class="wishlist-info">
+          <div class="wishlist-product-name">
+            Samsung 36" French door 28 cu. ft. Smart Energy Star Refrigerator
+          </div>
+          <div class="wishlist-rating">
+            ★★★★★ <span>(65)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wishlist-price">$2.51</div>
+      <div><span class="wishlist-stock">In Stock</span></div>
+
+      <div>
+        <button class="wishlist-add" type="button">Add to Cart</button>
+      </div>
+
+      <div>
+        <button class="wishlist-remove" type="button" aria-label="Remove product">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </article>
+
+    <!-- PRODUCT 7 -->
+    <article class="wishlist-item">
+      <div class="wishlist-product">
+
+        <input type="checkbox" class="wishlist-checkbox item-check"
+               aria-label="Select product 7">
+
+        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300"
+             alt="Laptop">
+
+        <div class="wishlist-info">
+          <div class="wishlist-product-name">
+            Samsung 36" French door 28 cu. ft. Smart Energy Star Refrigerator
+          </div>
+          <div class="wishlist-rating">
+            ★★★★★ <span>(65)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wishlist-price">$1.51</div>
+      <div><span class="wishlist-stock">In Stock</span></div>
+
+      <div>
+        <button class="wishlist-add" type="button">Add to Cart</button>
+      </div>
+
+      <div>
+        <button class="wishlist-remove" type="button" aria-label="Remove product">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </article>
+
+  </div>
+
+  <p id="wishlistEmpty" class="text-center py-4 d-none">
+    Your wishlist is empty.
+  </p>
+
+</section>
+
+<!-- YOU MAY ALSO LIKE -->
+<section class="wish-recommendations">
+
+  <h2 class="wish-section-title">You may also like</h2>
+
+  <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-3">
+
+    <!-- CARD 1 -->
+    <div class="col">
+      <article class="wish-product-card">
+
+        <span class="wish-discount">-17%</span>
+
+        <div class="wish-product-image">
+          <img src="https://images.unsplash.com/photo-1527430253228-e93688616381?w=400"
+               alt="Monitor">
+        </div>
+
+        <div class="wish-brand">Apple</div>
+
+        <div class="wish-product-name">
+          Razer Power Up Gaming Bundle V2 - Cynosa Lite
+        </div>
+
+        <div class="wish-card-rating">★★★★★ <span>(65)</span></div>
+
+        <div class="wish-card-price">
+          $2856.3 <span class="wish-old-price">$3225.6</span>
+        </div>
+
+        <div class="mt-auto">
+          <button class="wish-card-button" type="button">Add To Cart</button>
+
+          <ul class="wish-features">
+            <li>27-inch diagonal Retina 5K display</li>
+            <li>3.2GHz 6-core Intel processor</li>
+            <li>AMD Radeon Pro 5300 graphics</li>
+          </ul>
+        </div>
+
+      </article>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="col">
+      <article class="wish-product-card">
+
+        <span class="wish-discount">-17%</span>
+
+        <div class="wish-product-image">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400"
+               alt="Headphones">
+        </div>
+
+        <div class="wish-brand">Apple</div>
+
+        <div class="wish-product-name">
+          2022 Apple iMac with Retina 5K Display 8GB RAM
+        </div>
+
+        <div class="wish-card-rating">★★★★★ <span>(65)</span></div>
+
+        <div class="wish-card-price">
+          $2856.3 <span class="wish-old-price">$3225.6</span>
+        </div>
+
+        <div class="mt-auto">
+          <button class="wish-card-button" type="button">Add To Cart</button>
+
+          <ul class="wish-features">
+            <li>27-inch diagonal Retina 5K display</li>
+            <li>3.2GHz 6-core Intel processor</li>
+            <li>AMD Radeon Pro 5300 graphics</li>
+          </ul>
+        </div>
+
+      </article>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="col">
+      <article class="wish-product-card">
+
+        <span class="wish-discount">-17%</span>
+
+        <div class="wish-product-image">
+          <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400"
+               alt="Laptop">
+        </div>
+
+        <div class="wish-brand">Apple</div>
+
+        <div class="wish-product-name">
+          Samsung Galaxy Tab A7 Lite, 8.7" Tablet 32GB
+        </div>
+
+        <div class="wish-card-rating">★★★★★ <span>(65)</span></div>
+
+        <div class="wish-card-price">
+          $2856.3 <span class="wish-old-price">$3225.6</span>
+        </div>
+
+        <div class="mt-auto">
+          <button class="wish-card-button" type="button">Add To Cart</button>
+
+          <ul class="wish-features">
+            <li>27-inch diagonal Retina 5K display</li>
+            <li>3.2GHz 6-core Intel processor</li>
+            <li>AMD Radeon Pro 5300 graphics</li>
+          </ul>
+        </div>
+
+      </article>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="col">
+      <article class="wish-product-card">
+
+        <span class="wish-discount">-17%</span>
+
+        <div class="wish-product-image">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"
+               alt="Smartwatch">
+        </div>
+
+        <div class="wish-brand">Apple</div>
+
+        <div class="wish-product-name">
+          2022 Apple iMac with Retina 5K Display 8GB RAM
+        </div>
+
+        <div class="wish-card-rating">★★★★★ <span>(65)</span></div>
+
+        <div class="wish-card-price">
+          $2856.3 <span class="wish-old-price">$3225.6</span>
+        </div>
+
+        <div class="mt-auto">
+          <button class="wish-card-button" type="button">Add To Cart</button>
+
+          <ul class="wish-features">
+            <li>27-inch diagonal Retina 5K display</li>
+            <li>3.2GHz 6-core Intel processor</li>
+            <li>AMD Radeon Pro 5300 graphics</li>
+          </ul>
+        </div>
+
+      </article>
+    </div>
+
+    <!-- CARD 5 -->
+    <div class="col">
+      <article class="wish-product-card">
+
+        <span class="wish-discount">-17%</span>
+
+        <div class="wish-product-image">
+          <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400"
+               alt="Portable electronic device">
+        </div>
+
+        <div class="wish-brand">Apple</div>
+
+        <div class="wish-product-name">
+          HDR Smart Portable Projector - SP-LSP3B
+        </div>
+
+        <div class="wish-card-rating">★★★★★ <span>(65)</span></div>
+
+        <div class="wish-card-price">
+          $2856.3 <span class="wish-old-price">$3225.6</span>
+        </div>
+
+        <div class="mt-auto">
+          <button class="wish-card-button" type="button">Add To Cart</button>
+
+          <ul class="wish-features">
+            <li>27-inch diagonal Retina 5K display</li>
+            <li>3.2GHz 6-core Intel processor</li>
+            <li>AMD Radeon Pro 5300 graphics</li>
+          </ul>
+        </div>
+
+      </article>
+    </div>
+
+  </div>
+</section>
+
+<!-- RECENTLY VIEWED ITEMS -->
+<section class="wish-recent-section">
+
+  <h2 class="wish-section-title">Recently viewed items</h2>
+
+  <div class="row g-4">
+
+    <!-- RECENT 1 -->
+    <div class="col-12 col-sm-6 col-lg-3">
+      <article class="wish-recent-card">
+
+        <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=250"
+             alt="Computer">
+
+        <div class="wish-recent-info">
+          <div class="wish-brand">HP</div>
+
+          <div class="wish-recent-name">
+            HP 24 All-in-One PC, Intel Core i3-1115G4
+          </div>
+
+          <div class="wish-card-rating">★★★★★ <span>(65)</span></div>
+
+          <div class="wish-recent-price">
+            $2556.3 <span class="wish-old-price">$3225.6</span>
+          </div>
+        </div>
+
+      </article>
+    </div>
+
+    <!-- RECENT 2 -->
+    <div class="col-12 col-sm-6 col-lg-3">
+      <article class="wish-recent-card">
+
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=250"
+             alt="Smartwatch">
+
+        <div class="wish-recent-info">
+          <div class="wish-brand">HP</div>
+
+          <div class="wish-recent-name">
+            HP 22 All-in-One PC, Intel Pentium Silver
+          </div>
+
+          <div class="wish-card-rating">★★★★★ <span>(65)</span></div>
+
+          <div class="wish-recent-price">
+            $2556.3 <span class="wish-old-price">$3225.6</span>
+          </div>
+        </div>
+
+      </article>
+    </div>
+
+    <!-- RECENT 3 -->
+    <div class="col-12 col-sm-6 col-lg-3">
+      <article class="wish-recent-card">
+
+        <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=250"
+             alt="Computer">
+
+        <div class="wish-recent-info">
+          <div class="wish-brand">Class</div>
+
+          <div class="wish-recent-name">
+            Class 4K UHD (2160P) LED Roku Smart TV HDR
+          </div>
+
+          <div class="wish-card-rating">★★★★★ <span>(65)</span></div>
+
+          <div class="wish-recent-price">
+            $2556.3 <span class="wish-old-price">$3225.6</span>
+          </div>
+        </div>
+
+      </article>
+    </div>
+
+    <!-- RECENT 4 -->
+    <div class="col-12 col-sm-6 col-lg-3">
+      <article class="wish-recent-card">
+
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=250"
+             alt="Smartwatch">
+
+        <div class="wish-recent-info">
+          <div class="wish-brand">LG</div>
+
+          <div class="wish-recent-name">
+            LG 65" Class 4K UHD Smart TV OLED AI Series
+          </div>
+
+          <div class="wish-card-rating">★★★★★ <span>(65)</span></div>
+
+          <div class="wish-recent-price">
+            $2556.3 <span class="wish-old-price">$3225.6</span>
+          </div>
+        </div>
+
+      </article>
+    </div>
+
+  </div>
+</section>
+
+<!-- FIVE BENEFIT CARDS -->
+<section aria-label="Shopping benefits">
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-3">
+
+    <!-- FREE DELIVERY -->
+    <div class="col">
+      <div class="wish-benefit-card">
+
+        <i class="bi bi-airplane wish-benefit-icon"></i>
+
+        <div>
+          <div class="wish-benefit-title">Free Delivery</div>
+          <div class="wish-benefit-desc">From all orders over $10</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SUPPORT -->
+    <div class="col">
+      <div class="wish-benefit-card">
+
+        <i class="bi bi-headset wish-benefit-icon"></i>
+
+        <div>
+          <div class="wish-benefit-title">Support 24/7</div>
+          <div class="wish-benefit-desc">Shop with an expert</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- GIFT VOUCHER -->
+    <div class="col">
+      <div class="wish-benefit-card">
+
+        <i class="bi bi-gift wish-benefit-icon"></i>
+
+        <div>
+          <div class="wish-benefit-title">Gift voucher</div>
+          <div class="wish-benefit-desc">Refer a friend</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RETURN & REFUND -->
+    <div class="col">
+      <div class="wish-benefit-card">
+
+        <i class="bi bi-box-seam wish-benefit-icon"></i>
+
+        <div>
+          <div class="wish-benefit-title">Return & Refund</div>
+          <div class="wish-benefit-desc">Free return over $200</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECURE PAYMENT -->
+    <div class="col">
+      <div class="wish-benefit-card">
+
+        <i class="bi bi-shield-lock wish-benefit-icon"></i>
+
+        <div>
+          <div class="wish-benefit-title">Secure payment</div>
+          <div class="wish-benefit-desc">100% Protected</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+<script>
+// No cards are generated using JavaScript.
+// JS only handles selection, removal, and demo cart feedback.
+
+const wishlistItems = document.getElementById("wishlistItems");
+const selectAll = document.getElementById("selectAll");
+const emptyMessage = document.getElementById("wishlistEmpty");
+
+function updateWishlistState() {
+  const items = [...wishlistItems.querySelectorAll(".wishlist-item")];
+  const checks = items.map(item => item.querySelector(".item-check"));
+
+  selectAll.checked =
+    checks.length > 0 && checks.every(check => check.checked);
+
+  selectAll.indeterminate =
+    checks.some(check => check.checked) && !selectAll.checked;
+
+  selectAll.disabled = items.length === 0;
+
+  emptyMessage.classList.toggle("d-none", items.length !== 0);
+}
+
+// Select all
+selectAll.addEventListener("change", function() {
+  wishlistItems.querySelectorAll(".item-check").forEach(checkbox => {
+    checkbox.checked = this.checked;
+  });
+
+  updateWishlistState();
+});
+
+// Change individual selection
+wishlistItems.addEventListener("change", function(event) {
+  if (event.target.matches(".item-check")) {
+    updateWishlistState();
+  }
+});
+
+// Remove wishlist item
+wishlistItems.addEventListener("click", function(event) {
+  const removeButton = event.target.closest(".wishlist-remove");
+
+  if (!removeButton) return;
+
+  const item = removeButton.closest(".wishlist-item");
+  if (item) {
+    item.remove();
+    updateWishlistState();
+  }
+});
+
+// Add to cart (visual feedback only)
+document.querySelectorAll(".wishlist-add, .wish-card-button")
+  .forEach(button => {
+
+    button.addEventListener("click", function() {
+      this.textContent = "Added ✓";
+      this.classList.add("added");
+    });
+
+  });
+
+updateWishlistState();
+</script>
+
+</body>
+</html>

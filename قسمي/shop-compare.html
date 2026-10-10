@@ -1,0 +1,749 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare Products</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<style>
+:root {
+  --cmp-blue: #405b94;
+  --cmp-muted: #8da1c4;
+  --cmp-border: #dbe4ef;
+  --cmp-orange: #ff922e;
+}
+
+body {
+  background:#fff;
+  color:var(--cmp-blue);
+  font-family:Arial,sans-serif;
+  font-size:13px;
+}
+
+.compare-page {
+  max-width:1170px;
+  margin:auto;
+  padding:32px 15px 55px;
+}
+
+.compare-heading {
+  font-weight:700;
+  font-size:21px;
+  margin-bottom:22px;
+}
+
+.cmp-muted {color:var(--cmp-muted)}
+
+/* COMPARISON TABLE */
+
+.compare-table-wrapper {
+  max-width:990px;
+  margin:0 auto 65px;
+  overflow-x:auto;
+}
+
+.compare-table {
+  border-collapse:collapse;
+  width:100%;
+  min-width:690px;
+  table-layout:fixed;
+  text-align:center;
+  color:var(--cmp-blue);
+}
+
+.compare-table th,
+.compare-table td {
+  border:1px solid var(--cmp-border);
+  padding:11px 8px;
+  font-size:12px;
+  vertical-align:middle;
+}
+
+.compare-table th:first-child,
+.compare-table td:first-child {
+  width:135px;
+  font-weight:500;
+}
+
+.compare-table thead th {
+  padding:17px 12px;
+  font-weight:400;
+}
+
+.compare-product-image {
+  height:115px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:13px;
+}
+
+.compare-product-image img {
+  max-height:110px;
+  max-width:90%;
+  object-fit:contain;
+}
+
+.compare-product-name {
+  font-size:13px;
+  font-weight:700;
+  line-height:1.4;
+  min-height:37px;
+}
+
+.compare-rating {
+  color:var(--cmp-orange);
+  white-space:nowrap;
+}
+
+.compare-rating span {
+  color:var(--cmp-muted);
+  font-size:10px;
+}
+
+.compare-price {
+  font-weight:700;
+  font-size:13px;
+}
+
+.stock-badge {
+  display:inline-block;
+  padding:5px 8px;
+  background:#dce7ee;
+  font-size:11px;
+  font-weight:700;
+  border-radius:2px;
+}
+
+.out-stock {
+  color:#eb4256;
+  font-weight:700;
+  font-size:11px;
+}
+
+.cmp-button {
+  border:1px solid #a9bddd;
+  background:white;
+  color:var(--cmp-blue);
+  padding:9px 17px;
+  min-width:120px;
+  border-radius:2px;
+  font-weight:700;
+  font-size:11px;
+}
+
+.cmp-button.filled {
+  color:white;
+  background:var(--cmp-blue);
+  border-color:var(--cmp-blue);
+}
+
+.cmp-button:hover {
+  background:#304879;
+  color:white;
+}
+
+.remove-product {
+  color:var(--cmp-blue);
+  background:transparent;
+  border:0;
+  font-size:16px;
+  padding:5px 12px;
+}
+
+/* RECENT PRODUCTS */
+
+.recent-section {
+  margin-bottom:55px;
+}
+
+.recent-card {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  min-height:110px;
+}
+
+.recent-card img {
+  width:87px;
+  height:92px;
+  object-fit:contain;
+  flex-shrink:0;
+}
+
+.recent-info {min-width:0}
+
+.recent-brand {
+  font-size:10px;
+  color:var(--cmp-muted);
+  margin-bottom:4px;
+}
+
+.recent-name {
+  font-size:12px;
+  font-weight:700;
+  line-height:1.4;
+  margin-bottom:5px;
+}
+
+.recent-price {
+  font-weight:700;
+  font-size:16px;
+  margin-top:8px;
+}
+
+.old-price {
+  font-size:11px;
+  font-weight:400;
+  color:var(--cmp-muted);
+  text-decoration:line-through;
+  margin-left:6px;
+}
+
+/* RECOMMENDED CARDS */
+
+.recommend-section {
+  margin-bottom:75px;
+}
+
+.recommend-card {
+  border:1px solid var(--cmp-border);
+  border-radius:3px;
+  padding:12px;
+  height:100%;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  transition:box-shadow .2s;
+}
+
+.recommend-card:hover {
+  box-shadow:0 6px 20px rgba(40,65,110,.1);
+}
+
+.sale-badge {
+  position:absolute;
+  top:12px;
+  left:12px;
+  background:var(--cmp-orange);
+  color:white;
+  border-radius:12px;
+  padding:4px 9px;
+  font-size:10px;
+  font-weight:700;
+}
+
+.recommend-image {
+  height:155px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.recommend-image img {
+  max-width:100%;
+  max-height:145px;
+  object-fit:contain;
+}
+
+.recommend-brand {
+  font-size:10px;
+  color:var(--cmp-muted);
+  margin-bottom:5px;
+}
+
+.recommend-name {
+  font-size:12px;
+  font-weight:700;
+  line-height:1.45;
+  min-height:52px;
+  margin-bottom:6px;
+}
+
+.recommend-price {
+  font-size:17px;
+  font-weight:700;
+  margin:9px 0 12px;
+}
+
+.recommend-add {
+  width:100%;
+  color:var(--cmp-blue);
+  background:white;
+  border:1px solid #aebfdb;
+  border-radius:2px;
+  padding:9px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.recommend-add:hover {
+  background:var(--cmp-blue);
+  color:white;
+}
+
+.recommend-features {
+  font-size:10px;
+  line-height:1.8;
+  padding-left:14px;
+  margin:12px 0 0;
+}
+
+/* FIVE SERVICE CARDS */
+
+.benefit-card {
+  border:1px solid #d1deec;
+  border-radius:3px;
+  padding:12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-height:72px;
+  height:100%;
+}
+
+.benefit-icon {
+  color:var(--cmp-blue);
+  font-size:29px;
+  flex-shrink:0;
+}
+
+.benefit-title {
+  font-size:15px;
+  font-weight:700;
+  white-space:nowrap;
+  margin-bottom:4px;
+}
+
+.benefit-subtitle {
+  font-size:11px;
+  color:var(--cmp-muted);
+}
+
+@media(max-width:767px) {
+  .compare-table-wrapper {
+    margin-bottom:45px;
+  }
+
+  .recommend-section {
+    margin-bottom:50px;
+  }
+
+  .recommend-image {
+    height:125px;
+  }
+
+  .recommend-image img {
+    max-height:115px;
+  }
+
+  .recommend-name {
+    font-size:11px;
+  }
+
+  .recent-card img {
+    width:70px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main class="compare-page">
+
+<!-- COMPARISON TABLE -->
+<section aria-label="Product comparison">
+
+<div class="compare-table-wrapper">
+<table class="compare-table">
+
+<thead>
+<tr>
+  <th scope="col">Products</th>
+
+  <th scope="col" data-product="1">
+    <div class="compare-product-image">
+      <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=350"
+           alt="Dell monitor">
+    </div>
+    <div class="compare-product-name">
+      Dell Optiplex 9020 Small Form Business Desktop Tower PC
+    </div>
+  </th>
+
+  <th scope="col" data-product="2">
+    <div class="compare-product-image">
+      <img src="https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=350"
+           alt="HP monitor">
+    </div>
+    <div class="compare-product-name">
+      HP 24 All-in-One PC, Intel Core i3-1115G4, 4GB RAM
+    </div>
+  </th>
+
+  <th scope="col" data-product="3">
+    <div class="compare-product-image">
+      <img src="https://images.unsplash.com/photo-1527430253228-e93688616381?w=350"
+           alt="Logitech display">
+    </div>
+    <div class="compare-product-name">
+      Logitech Brio 4K Webcam, Ultra 4K HD Video Calling
+    </div>
+  </th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+  <th scope="row">Review</th>
+  <td data-product="1"><span class="compare-rating">★★★★★ <span>(65)</span></span></td>
+  <td data-product="2"><span class="compare-rating">★★★★★ <span>(65)</span></span></td>
+  <td data-product="3"><span class="compare-rating">★★★★★ <span>(65)</span></span></td>
+</tr>
+
+<tr>
+  <th scope="row">Screen Size</th>
+  <td data-product="1">42"</td>
+  <td data-product="2">42"</td>
+  <td data-product="3">42"</td>
+</tr>
+
+<tr>
+  <th scope="row">Screen Definition</th>
+  <td data-product="1">Full High Definition</td>
+  <td data-product="2">Full High Definition</td>
+  <td data-product="3">Full High Definition</td>
+</tr>
+
+<tr>
+  <th scope="row">Product Type</th>
+  <td data-product="1">LED LCDs</td>
+  <td data-product="2">LED LCDs</td>
+  <td data-product="3">LED LCDs</td>
+</tr>
+
+<tr>
+  <th scope="row">Connectivity</th>
+  <td data-product="1">—</td>
+  <td data-product="2">—</td>
+  <td data-product="3">—</td>
+</tr>
+
+<tr>
+  <th scope="row">Price</th>
+  <td data-product="1" class="compare-price">$2786.6</td>
+  <td data-product="2" class="compare-price">$2856.6</td>
+  <td data-product="3" class="compare-price">$2956.6</td>
+</tr>
+
+<tr>
+  <th scope="row">Stock status</th>
+  <td data-product="1"><span class="stock-badge">In Stock</span></td>
+  <td data-product="2"><span class="out-stock">Out of stock</span></td>
+  <td data-product="3"><span class="stock-badge">In Stock</span></td>
+</tr>
+
+<tr>
+  <th scope="row">Buy now</th>
+  <td data-product="1"><button class="cmp-button filled add-cart">Add to Cart</button></td>
+  <td data-product="2"><button class="cmp-button">Contact us</button></td>
+  <td data-product="3"><button class="cmp-button filled add-cart">Add to Cart</button></td>
+</tr>
+
+<tr>
+  <th scope="row">Remove</th>
+  <td data-product="1">
+    <button class="remove-product" data-remove="1" aria-label="Remove Dell product">
+      <i class="bi bi-trash"></i>
+    </button>
+  </td>
+  <td data-product="2">
+    <button class="remove-product" data-remove="2" aria-label="Remove HP product">
+      <i class="bi bi-trash"></i>
+    </button>
+  </td>
+  <td data-product="3">
+    <button class="remove-product" data-remove="3" aria-label="Remove Logitech product">
+      <i class="bi bi-trash"></i>
+    </button>
+  </td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- RECENTLY VIEWED -->
+<section class="recent-section">
+
+<h2 class="compare-heading">Recently viewed items</h2>
+
+<div class="row g-4">
+
+  <div class="col-12 col-sm-6 col-lg-3">
+    <article class="recent-card">
+      <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=250" alt="Dell product">
+      <div class="recent-info">
+        <div class="recent-brand">Dell</div>
+        <div class="recent-name">Dell Optiplex 9020 Small Form Business Desktop</div>
+        <div class="compare-rating">★★★★★ <span>(65)</span></div>
+        <div class="recent-price">$2556.3 <span class="old-price">$3225.6</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="col-12 col-sm-6 col-lg-3">
+    <article class="recent-card">
+      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=250" alt="HP product">
+      <div class="recent-info">
+        <div class="recent-brand">HP</div>
+        <div class="recent-name">HP 24 All-in-One PC, Intel Core i3-1115G4</div>
+        <div class="compare-rating">★★★★★ <span>(65)</span></div>
+        <div class="recent-price">$2556.3 <span class="old-price">$3225.6</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="col-12 col-sm-6 col-lg-3">
+    <article class="recent-card">
+      <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=250" alt="Gateway product">
+      <div class="recent-info">
+        <div class="recent-brand">Gateway</div>
+        <div class="recent-name">Gateway 23.8" All-in-one Desktop</div>
+        <div class="compare-rating">★★★★★ <span>(65)</span></div>
+        <div class="recent-price">$2556.3 <span class="old-price">$3225.6</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="col-12 col-sm-6 col-lg-3">
+    <article class="recent-card">
+      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=250" alt="HP computer">
+      <div class="recent-info">
+        <div class="recent-brand">HP</div>
+        <div class="recent-name">HP 22 All-in-One PC, Intel Pentium Silver J5040</div>
+        <div class="compare-rating">★★★★★ <span>(65)</span></div>
+        <div class="recent-price">$2556.3 <span class="old-price">$3225.6</span></div>
+      </div>
+    </article>
+  </div>
+
+</div>
+</section>
+
+<!-- YOU MAY ALSO LIKE -->
+<section class="recommend-section">
+
+<h2 class="compare-heading">You may also like</h2>
+
+<div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-3">
+
+  <!-- CARD 1 -->
+  <div class="col">
+    <article class="recommend-card">
+      <span class="sale-badge">-17%</span>
+      <div class="recommend-image">
+        <img src="https://images.unsplash.com/photo-1527430253228-e93688616381?w=400" alt="HP monitor">
+      </div>
+      <div class="recommend-brand">HP</div>
+      <div class="recommend-name">HP 24mh FHD Monitor - Computer Monitor</div>
+      <div class="compare-rating">★★★★★ <span>(65)</span></div>
+      <div class="recommend-price">$2856.3 <span class="old-price">$3225.6</span></div>
+      <div class="mt-auto">
+        <button class="recommend-add">Add To Cart</button>
+        <ul class="recommend-features">
+          <li>27-inch Retina 5K display</li>
+          <li>3.2GHz 6-core processor</li>
+          <li>AMD Radeon Pro graphics</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="col">
+    <article class="recommend-card">
+      <span class="sale-badge">-17%</span>
+      <div class="recommend-image">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" alt="Headset">
+      </div>
+      <div class="recommend-brand">Logitech</div>
+      <div class="recommend-name">Logitech H390 Wired Headset, Stereo Headphones</div>
+      <div class="compare-rating">★★★★★ <span>(65)</span></div>
+      <div class="recommend-price">$2856.3 <span class="old-price">$3225.6</span></div>
+      <div class="mt-auto">
+        <button class="recommend-add">Add To Cart</button>
+        <ul class="recommend-features">
+          <li>27-inch Retina 5K display</li>
+          <li>3.2GHz 6-core processor</li>
+          <li>AMD Radeon Pro graphics</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+
+  <!-- CARD 3 -->
+  <div class="col">
+    <article class="recommend-card">
+      <span class="sale-badge">-17%</span>
+      <div class="recommend-image">
+        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400" alt="Laptop">
+      </div>
+      <div class="recommend-brand">Samsung</div>
+      <div class="recommend-name">Samsung 36" French door 28 cu. ft. Smart Energy</div>
+      <div class="compare-rating">★★★★★ <span>(65)</span></div>
+      <div class="recommend-price">$2856.3 <span class="old-price">$3225.6</span></div>
+      <div class="mt-auto">
+        <button class="recommend-add">Add To Cart</button>
+        <ul class="recommend-features">
+          <li>27-inch Retina 5K display</li>
+          <li>3.2GHz 6-core processor</li>
+          <li>AMD Radeon Pro graphics</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+
+  <!-- CARD 4 -->
+  <div class="col">
+    <article class="recommend-card">
+      <span class="sale-badge">-17%</span>
+      <div class="recommend-image">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" alt="Smart watch">
+      </div>
+      <div class="recommend-brand">Apple</div>
+      <div class="recommend-name">2022 Apple iMac with Retina 5K Display 8GB RAM</div>
+      <div class="compare-rating">★★★★★ <span>(65)</span></div>
+      <div class="recommend-price">$2856.3 <span class="old-price">$3225.6</span></div>
+      <div class="mt-auto">
+        <button class="recommend-add">Add To Cart</button>
+        <ul class="recommend-features">
+          <li>27-inch Retina 5K display</li>
+          <li>3.2GHz 6-core processor</li>
+          <li>AMD Radeon Pro graphics</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+
+  <!-- CARD 5 -->
+  <div class="col">
+    <article class="recommend-card">
+      <span class="sale-badge">-17%</span>
+      <div class="recommend-image">
+        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400" alt="Electronic accessory">
+      </div>
+      <div class="recommend-brand">Samsung</div>
+      <div class="recommend-name">Samsung 36" French door 28 cu. ft. Smart Energy</div>
+      <div class="compare-rating">★★★★★ <span>(65)</span></div>
+      <div class="recommend-price">$2856.3 <span class="old-price">$3225.6</span></div>
+      <div class="mt-auto">
+        <button class="recommend-add">Add To Cart</button>
+        <ul class="recommend-features">
+          <li>27-inch Retina 5K display</li>
+          <li>3.2GHz 6-core processor</li>
+          <li>AMD Radeon Pro graphics</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+
+</div>
+</section>
+
+<!-- FIVE BENEFITS -->
+<section aria-label="Shopping benefits">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-3">
+
+  <div class="col">
+    <div class="benefit-card">
+      <i class="bi bi-airplane benefit-icon"></i>
+      <div>
+        <div class="benefit-title">Free Delivery</div>
+        <div class="benefit-subtitle">From all orders over $10</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="benefit-card">
+      <i class="bi bi-headset benefit-icon"></i>
+      <div>
+        <div class="benefit-title">Support 24/7</div>
+        <div class="benefit-subtitle">Shop with an expert</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="benefit-card">
+      <i class="bi bi-gift benefit-icon"></i>
+      <div>
+        <div class="benefit-title">Gift voucher</div>
+        <div class="benefit-subtitle">Refer a friend</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="benefit-card">
+      <i class="bi bi-box-seam benefit-icon"></i>
+      <div>
+        <div class="benefit-title">Return & Refund</div>
+        <div class="benefit-subtitle">Free return over $200</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="benefit-card">
+      <i class="bi bi-shield-lock benefit-icon"></i>
+      <div>
+        <div class="benefit-title">Secure payment</div>
+        <div class="benefit-subtitle">100% Protected</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+</main>
+
+<script>
+// JavaScript only handles interaction.
+// All table rows and product cards are written in HTML.
+
+// Remove a product column from the comparison table.
+document.querySelectorAll(".remove-product").forEach(button => {
+  button.addEventListener("click", () => {
+    const productId = button.dataset.remove;
+
+    document.querySelectorAll("[data-product]").forEach(cell => {
+      if (cell.dataset.product === productId) {
+        cell.remove();
+      }
+    });
+  });
+});
+
+// Demo visual feedback for Add To Cart buttons.
+document.querySelectorAll(".add-cart, .recommend-add").forEach(button => {
+  button.addEventListener("click", () => {
+    button.textContent = "Added ✓";
+    button.style.backgroundColor = "#405b94";
+    button.style.color = "#fff";
+  });
+});
+</script>
+
+</body>
+</html>
